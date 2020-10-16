@@ -36,7 +36,7 @@ export default () => ({
             {
                 exclude: /node_modules/,
                 include: path.join(__dirname, 'src/main/js/'),
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 use: 'babel-loader'
             },
             {
