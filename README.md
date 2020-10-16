@@ -3,4 +3,4 @@ Study project from @Arthasasyan and @ilyashn
 
 ## Run
 1. `yarn install`
-2. `yarn build`
+2. `yarn start` or `yarn build`
