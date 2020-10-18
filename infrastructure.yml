@@ -11,7 +11,21 @@ services:
     volumes:
       - 'postgres_data:/var/lib/postgresql/data'
 
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: texts
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'postgres_data:/var/lib/mongo/data'
+
 
 volumes:
   postgres_data:
+    driver: local
+  mongo_data:
     driver: local
