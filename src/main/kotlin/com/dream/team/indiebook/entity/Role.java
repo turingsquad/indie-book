@@ -2,19 +2,18 @@ package com.dream.team.indiebook.entity;
 
 import com.dream.team.indiebook.enums.RoleName;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_id_seq")
+    @SequenceGenerator(name = "role_id_seq", sequenceName = "role_id_seq", allocationSize = 1)
     private Integer id;
 
     @Enumerated(EnumType.STRING)

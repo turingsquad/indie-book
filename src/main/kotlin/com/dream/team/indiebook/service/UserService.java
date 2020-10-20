@@ -56,7 +56,7 @@ public class UserService {
     }
 
     @Transactional
-    public MessageResponseVO saveUser(SignUpRequestVO signupRequestVO) {
+    public String saveUser(SignUpRequestVO signupRequestVO) {
         User user = new User(signupRequestVO.getUsername(),
                 passwordEncoder.encode(signupRequestVO.getPassword()));
 
@@ -78,13 +78,13 @@ public class UserService {
                         roles.add(userRole);
                         break;
                     default:
-                        return new MessageResponseVO("Incorrect Role!");
+                        return "Incorrect Role!";
                 }
             }
         }
         user.setRoles(roles);
         userRepository.save(user);
-        return new MessageResponseVO("User registered successfully!");
+        return "User registered successfully!";
     }
 
     @Transactional
