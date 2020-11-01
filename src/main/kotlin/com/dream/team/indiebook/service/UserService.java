@@ -60,26 +60,18 @@ public class UserService {
         User user = new User(signupRequestVO.getUsername(),
                 passwordEncoder.encode(signupRequestVO.getPassword()));
 
-        Set<String> strRoles = signupRequestVO.getRole();
+        Set<RoleName> roleNames = signupRequestVO.getRole()
+                .stream()
+                .map(it -> RoleName.valueOf("ROLE_" + it.toUpperCase()))
+                .collect(Collectors.toSet());
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (roleNames == null) {
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
             roles.add(userRole);
         } else {
-            for (String role : strRoles) {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN);
-                        roles.add(adminRole);
-                        break;
-                    case "user":
-                        Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
-                        roles.add(userRole);
-                        break;
-                    default:
-                        return "Incorrect Role!";
-                }
+            for (RoleName role : roleNames) {
+                roles.add(roleRepository.findByName(role));
             }
         }
         user.setRoles(roles);

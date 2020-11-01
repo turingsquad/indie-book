@@ -36,6 +36,16 @@ public class AuthController {
                     .badRequest()
                     .body("This username is already taken!");
         }
-        return ResponseEntity.ok(userService.saveUser(signUpRequestVO));
+
+        String answer;
+
+        try {
+            answer = userService.saveUser(signUpRequestVO);
+        }
+        catch (IllegalArgumentException ex) {
+            return ResponseEntity.ok("Incorrect role");
+        }
+
+        return ResponseEntity.ok(answer);
     }
 }
