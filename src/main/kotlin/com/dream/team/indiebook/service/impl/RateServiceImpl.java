@@ -23,16 +23,16 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public List<LikeVo> getAllLikesByBook(Long bookID) {
-        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookID, RateType.LIKE);
+    public List<LikeVo> getAllLikesByBook(Long bookId) {
+        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.LIKE);
         return byBookIdAndRateType.stream()
                 .map(it -> new LikeVo(it.getId(), it.getUserId()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<DislikeVo> getAllDislikesByBook(Long bookID) {
-        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookID, RateType.DISLIKE);
+    public List<DislikeVo> getAllDislikesByBook(Long bookId) {
+        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.DISLIKE);
         return byBookIdAndRateType.stream()
                 .map(it -> new DislikeVo(it.getId(), it.getUserId()))
                 .collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class RateServiceImpl implements RateService {
 
     @Override
     public void createLike(LikeVo likeVo) {
-        Rate rate = new Rate(likeVo.getUserID(), likeVo.getBookID(), RateType.LIKE);
+        Rate rate = new Rate(likeVo.getUserId(), likeVo.getBookId(), RateType.LIKE);
         rateRepository.save(rate);
     }
 
@@ -51,12 +51,12 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public Integer countLikesByBook(Long bookID) {
-        return rateRepository.countByBookIdAndRateType(bookID, RateType.LIKE);
+    public Integer countLikesByBook(Long bookId) {
+        return rateRepository.countByBookIdAndRateType(bookId, RateType.LIKE);
     }
 
     @Override
-    public Integer countDislikesByBook(Long bookID) {
-        return rateRepository.countByBookIdAndRateType(bookID, RateType.DISLIKE);
+    public Integer countDislikesByBook(Long bookId) {
+        return rateRepository.countByBookIdAndRateType(bookId, RateType.DISLIKE);
     }
 }

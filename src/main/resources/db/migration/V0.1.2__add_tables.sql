@@ -9,7 +9,7 @@ rate rate_type
 
 CREATE TABLE comments(
 id bigint PRIMARY KEY,
-bookID bigint REFERENCES books (id),
-userID bigint REFERENCES users (id),
+chapter_id bigint REFERENCES chapters (id),
+user_id bigint REFERENCES users (id),
 text varchar(250)
 );
