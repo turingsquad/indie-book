@@ -38,6 +38,7 @@ class ChapterServiceImpl : ChapterService {
                     it.creationDate,
                     text?.text,
                     commentCount
+
             ))
         }
         return result
