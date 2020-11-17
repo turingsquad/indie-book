@@ -7,6 +7,9 @@ module.exports = {
         filename: 'bundle.js',
         path: path.join(__dirname, 'src/main/resources/static')
     },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     module: {
         rules: [
             {

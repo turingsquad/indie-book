@@ -18,7 +18,7 @@ class BookApiController {
     @set:Autowired
     lateinit var chapterService: ChapterService
 
-    @GetMapping("/api/v1/books/{userId}")
+    @GetMapping("/api/v1/books/byUser/{userId}")
     fun getBooksByUser(@PathVariable userId: Long): List<BookVo> {
         return bookService.getAllByUser(userId)
     }
