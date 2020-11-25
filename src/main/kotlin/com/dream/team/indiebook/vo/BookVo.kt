@@ -11,5 +11,7 @@ data class BookVo(
         val id: Long?,
         val userId: Long?,
         val creationDate: LocalDateTime?,
-        val chapterCount: Int?
+        val chapterCount: Int?,
+        val likeCount: Int?,
+        val dislikeCount: Int?
 )
