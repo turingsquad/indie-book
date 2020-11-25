@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import CreateRounded from '@material-ui/icons/CreateRounded';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -19,10 +22,6 @@ const useStyles = makeStyles((theme) => ({
     toolbarSecondary: {
         justifyContent: 'space-between',
         overflowX: 'auto',
-    },
-    toolbarLink: {
-        padding: theme.spacing(1),
-        flexShrink: 0,
     },
     button : {
         marginLeft: theme.spacing(2),
@@ -56,9 +55,16 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
     },
+    icon : {
+        marginRight : theme.spacing(2),
+        marginLeft : theme.spacing(2),
+    },
+    link: {
+        float: "left"
+    }
 }));
 
-export default function Header(props) {
+export default function HeaderWithAuth(props) {
     const classes = useStyles();
     const { title } = props;
 
@@ -75,6 +81,29 @@ export default function Header(props) {
                         >
                             {title}
                         </Typography>
+                        <Typography
+                            variant="body2"
+                            color="inherit"
+                            noWrap
+                            className={classes.link}
+                        >
+                            <Button color="inherit">
+                                Article
+                            </Button>
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            color="inherit"
+                            noWrap
+                            className={classes.link}
+                        >
+                            <Button color="inherit">
+                                Authors
+                            </Button>
+                        </Typography>
+                        <IconButton edge="end" color="inherit">
+                            <CreateRounded className={classes.icon}/>
+                        </IconButton>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
@@ -87,8 +116,10 @@ export default function Header(props) {
                                 }}
                             />
                         </div>
-                        <Button className={classes.button} size="small" color="inherit">Sign in</Button>
-                        <Button className={classes.button} variant="outlined" size="small" color="inherit">Sign up</Button>
+                        <IconButton edge="end" color="inherit">
+                            Name
+                            <AccountCircle className={classes.icon}/>
+                        </IconButton>
                     </Toolbar>
                 </Container>
             </AppBar>
@@ -96,6 +127,6 @@ export default function Header(props) {
     );
 }
 
-Header.propTypes = {
+HeaderWithAuth.propTypes = {
     title: PropTypes.string,
 };
