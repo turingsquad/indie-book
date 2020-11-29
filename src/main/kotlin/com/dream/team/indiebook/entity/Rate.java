@@ -15,13 +15,13 @@ public class Rate {
     @Column(name = "book_id")
     private Long bookId;
     @Enumerated(EnumType.STRING)
-    @Column(name = "rate_type")
+    @Column(name = "rate")
     private RateType rateType;
 
     public Rate() {
     }
 
-    public Rate(Long userId, Long bookId, RateType rateType) {
+    public Rate(final Long userId, final Long bookId, final RateType rateType) {
         this.userId = userId;
         this.bookId = bookId;
         this.rateType = rateType;
@@ -31,7 +31,7 @@ public class Rate {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class Rate {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -47,7 +47,7 @@ public class Rate {
         return bookId;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(final Long bookId) {
         this.bookId = bookId;
     }
 
@@ -55,7 +55,7 @@ public class Rate {
         return rateType;
     }
 
-    public void setRateType(RateType rateType) {
+    public void setRateType(final RateType rateType) {
         this.rateType = rateType;
     }
 }

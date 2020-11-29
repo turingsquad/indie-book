@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         background: '#ffddb0',
         height: 40
     },
-    card : {
+    card: {
         height: 100,
         width: 100
     },
@@ -21,44 +21,62 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.warning.dark,
         marginRight: theme.spacing(2)
     },
-    cardAction : {
-        float : 'right'
+    cardAction: {
+        float: 'right'
     }
 }));
 
+function recommendedBooks() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/books/random/" + 3, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
+function findAuthor(userId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
 export default function Recommendation() {
     const classes = useStyles();
-
+    var recommendations = recommendedBooks();
     return (
         <Card variant="outlined">
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                     <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            Book1
+                        <Typography align="center" variant="h5" onCl>
+                            {findAuthor(recommendations[0].authorId).userName}
                         </Typography>
                     </Card>
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
-                            Book2
+                            {findAuthor(recommendations[1].authorId).userName}
                         </Typography>
                     </Card>
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
-                            Book3
+                            {findAuthor(recommendations[2].authorId).userName}
                         </Typography>
                     </Card>
                 </Grid>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                     <Typography variant="body1">
-                        Name and Author
+                        {recommendations[0].name}
                     </Typography>
                     <Typography variant="body1">
-                        Name and Author
+                        {recommendations[1].name}
                     </Typography>
                     <Typography variant="body1">
-                        Name and Author
+                        {recommendations[2].name}
                     </Typography>
                 </Grid>
             </CardContent>

@@ -11,4 +11,5 @@ interface BookService {
     fun findById(id: Long): BookVo
     fun createBook(bookVo: BookVo)
     fun searchBooks(request: SearchRequest): List<BookVo>
+    fun findRandomBooks(limit: Int): List<BookVo>
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
@@ -77,7 +77,7 @@ export default function Header(props) {
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                                <SearchIcon />
+                                <SearchIcon/>
                             </div>
                             <InputBase
                                 placeholder="Search…"
@@ -88,7 +88,8 @@ export default function Header(props) {
                             />
                         </div>
                         <Button className={classes.button} size="small" color="inherit">Sign in</Button>
-                        <Button className={classes.button} variant="outlined" size="small" color="inherit">Sign up</Button>
+                        <Button className={classes.button} variant="outlined" size="small" color="inherit">Sign
+                            up</Button>
                     </Toolbar>
                 </Container>
             </AppBar>

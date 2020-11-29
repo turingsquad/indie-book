@@ -44,7 +44,7 @@ class BookServiceImpl : BookService {
     override fun createBook(bookVo: BookVo) {
         val domainEntity = Book(
             null,
-            bookVo.userId,
+            bookVo.authorId,
             bookVo.name,
             LocalDateTime.now(),
             tagService.viewsToEntities(bookVo.tags ?: emptyList())
@@ -60,6 +60,11 @@ class BookServiceImpl : BookService {
         }.flatten()
         val byNamePatterns = bookRepository.findByNameContaining(request.namePart ?: "")
         return entitiesToViews(byTags.union(byNamePatterns).toList())
+    }
+
+    override fun findRandomBooks(limit: Int): List<BookVo> {
+        val entities = bookRepository.findRandom(limit)
+        return entitiesToViews(entities)
     }
 
     private fun entitiesToViews(entities: List<Book>): List<BookVo> {

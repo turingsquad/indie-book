@@ -9,8 +9,9 @@ import com.dream.team.indiebook.repository.UserRepository;
 import com.dream.team.indiebook.request.SignInRequestVO;
 import com.dream.team.indiebook.request.SignUpRequestVO;
 import com.dream.team.indiebook.response.JwtResponseVO;
-import com.dream.team.indiebook.response.MessageResponseVO;
+import com.dream.team.indiebook.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -35,42 +37,46 @@ public class UserService {
 
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public void setUserRepository(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
+    public void setRoleRepository(final RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
+
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
+
     @Autowired
-    public void setJwtProvider(JwtProvider jwtProvider) {
+    public void setJwtProvider(final JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
+
     @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+    public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
     @Transactional
-    public String saveUser(SignUpRequestVO signupRequestVO) {
-        User user = new User(signupRequestVO.getUsername(),
+    public String saveUser(final SignUpRequestVO signupRequestVO) {
+        final User user = new User(signupRequestVO.getUsername(),
                 passwordEncoder.encode(signupRequestVO.getPassword()));
 
-        Set<RoleName> roleNames = signupRequestVO.getRole()
+        final Set<RoleName> roleNames = signupRequestVO.getRole()
                 .stream()
                 .map(it -> RoleName.valueOf("ROLE_" + it.toUpperCase()))
                 .collect(Collectors.toSet());
-        Set<Role> roles = new HashSet<>();
+        final Set<Role> roles = new HashSet<>();
 
         if (roleNames == null) {
-            Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
+            final Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
             roles.add(userRole);
         } else {
-            for (RoleName role : roleNames) {
+            for (final RoleName role : roleNames) {
                 roles.add(roleRepository.findByName(role));
             }
         }
@@ -80,23 +86,27 @@ public class UserService {
     }
 
     @Transactional
-    public Boolean existsByUsername(String username) {
+    public Boolean existsByUsername(final String username) {
         return userRepository.existsByUsername(username);
     }
 
-    public JwtResponseVO authenticateUser(SignInRequestVO signinRequestVO) {
-        Authentication authentication = authenticationManager.authenticate(
+    public JwtResponseVO authenticateUser(final SignInRequestVO signinRequestVO) {
+        final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signinRequestVO.getUsername(), signinRequestVO.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateJwtToken(authentication);
+        final String jwt = jwtProvider.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
+        final UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        final List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
         return new JwtResponseVO(jwt, userDetails.getId(), userDetails.getUsername(), roles);
     }
 
+    public UserVo findUserById(final Long id) {
+        final var entity = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new UserVo(entity.getId(), entity.getUsername());
+    }
 }

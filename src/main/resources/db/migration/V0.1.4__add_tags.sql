@@ -1,7 +1,7 @@
 CREATE TABLE tags
 (
     id       bigint PRIMARY KEY,
-    tag_name varchar(64)
+    tag_name varchar(128)
 );
 
 CREATE TABLE books_tags

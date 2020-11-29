@@ -4,9 +4,11 @@ import com.dream.team.indiebook.request.SearchRequest
 import com.dream.team.indiebook.service.BookService
 import com.dream.team.indiebook.service.ChapterService
 import com.dream.team.indiebook.service.TagService
+import com.dream.team.indiebook.service.UserService
 import com.dream.team.indiebook.vo.BookVo
 import com.dream.team.indiebook.vo.ChapterVo
 import com.dream.team.indiebook.vo.TagVo
+import com.dream.team.indiebook.vo.UserVo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -23,6 +25,9 @@ class BookApiController {
 
     @set:Autowired
     lateinit var tagService: TagService
+
+    @set:Autowired
+    lateinit var userService: UserService
 
     @GetMapping("/api/v1/books/{userId}")
     fun getBooksByUser(@PathVariable userId: Long): List<BookVo> {
@@ -57,5 +62,15 @@ class BookApiController {
     @PostMapping("/api/v1/search")
     fun searchBooks(@RequestBody searchRequest: SearchRequest): List<BookVo> {
         return bookService.searchBooks(searchRequest)
+    }
+
+    @GetMapping("/api/v1/books/random/{limit}")
+    fun findRandomBooks(@PathVariable limit: Int): List<BookVo> {
+        return bookService.findRandomBooks(limit)
+    }
+
+    @GetMapping("/api/v1/users/{id}")
+    fun findUser(@PathVariable id: Long): UserVo {
+        return userService.findUserById(id)
     }
 }
