@@ -1,17 +1,12 @@
 package com.dream.team.indiebook.vo
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import java.time.LocalDateTime
 
 /**
  * @author Alexander Kostyurenko
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class ChapterVo(
+data class TagVo(
     val id: Long?,
-    val bookId: Long?,
-    val name: String?,
-    val creationDate: LocalDateTime?,
-    val text: String?,
-    val commentCount: Int
+    val name: String?
 )

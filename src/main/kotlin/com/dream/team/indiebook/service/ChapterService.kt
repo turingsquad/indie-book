@@ -7,6 +7,7 @@ import com.dream.team.indiebook.vo.ChapterVo
  */
 interface ChapterService {
     fun findByBook(bookId: Long): List<ChapterVo>
+    fun findById(id: Long): ChapterVo
     fun countByBook(bookId: Long): Int
     fun createChapter(chapterVo: ChapterVo)
 }

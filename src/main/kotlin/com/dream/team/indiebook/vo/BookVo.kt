@@ -8,10 +8,12 @@ import java.time.LocalDateTime
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class BookVo(
-        val id: Long?,
-        val userId: Long?,
-        val creationDate: LocalDateTime?,
-        val chapterCount: Int?,
-        val likeCount: Int?,
-        val dislikeCount: Int?
+    val id: Long?,
+    val userId: Long?,
+    val name: String?,
+    val creationDate: LocalDateTime?,
+    val chapterCount: Int?,
+    val likeCount: Int?,
+    val dislikeCount: Int?,
+    val tags: List<TagVo>?
 )
