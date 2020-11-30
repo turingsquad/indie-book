@@ -2,3 +2,6 @@ h1 {
     color: #27aedb;
     text-align: center;
 }
+.chapter {
+    display: inline;
+}

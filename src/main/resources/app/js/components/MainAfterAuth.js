@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function MainWithAuth() {
+export default function MainAfterAuth() {
     const classes = useStyles();
 
     return (

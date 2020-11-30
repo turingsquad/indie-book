@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function HeaderWithAuth(props) {
+export default function HeaderAfterAuth(props) {
     const classes = useStyles();
     const { title } = props;
 
@@ -127,6 +127,6 @@ export default function HeaderWithAuth(props) {
     );
 }
 
-HeaderWithAuth.propTypes = {
+HeaderAfterAuth.propTypes = {
     title: PropTypes.string,
 };

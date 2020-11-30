@@ -7,6 +7,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import {makeStyles} from "@material-ui/core/styles";
 import CardActions from '@material-ui/core/CardActions';
 import Link from '@material-ui/core/Link';
+import BookLink from "./BookLink";
 
 const useStyles = makeStyles((theme) => ({
     cardHeader : {
@@ -34,32 +35,15 @@ export default function Recommendation() {
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            Book1
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            Book2
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            Book3
-                        </Typography>
-                    </Card>
-                </Grid>
-                <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Typography variant="body1">
-                        Name and Author
-                    </Typography>
-                    <Typography variant="body1">
-                        Name and Author
-                    </Typography>
-                    <Typography variant="body1">
-                        Name and Author
-                    </Typography>
+                    <Grid item lg={3}>
+                        <BookLink/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink/>
+                    </Grid>
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardAction}>
