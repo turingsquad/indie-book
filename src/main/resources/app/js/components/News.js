@@ -63,7 +63,7 @@ export default function News() {
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button variant="contained" size="large" className={classes.button} >Read</Button>
+                <Button variant="contained" size="large" className={classes.button}>Read</Button>
             </CardActions>
         </Card>
     );

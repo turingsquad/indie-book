@@ -26,7 +26,9 @@ class Book(
                 joinColumns = [JoinColumn(name = "book_id")],
                 inverseJoinColumns = [JoinColumn(name = "tag_id")]
         )
-        var tags: List<Tag>?
+        var tags: List<Tag>?,
+        @get:Column(name = "description")
+        var description: String?
 ) {
-        constructor() : this(null, null, null, LocalDateTime.now(), emptyList<Tag>())
+        constructor() : this(null, null, null, LocalDateTime.now(), emptyList<Tag>(), null)
 }

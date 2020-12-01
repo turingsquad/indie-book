@@ -7,6 +7,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import {makeStyles} from "@material-ui/core/styles";
 import CardActions from '@material-ui/core/CardActions';
 import Link from '@material-ui/core/Link';
+import BookLink from "./BookLink";
 
 const useStyles = makeStyles((theme) => ({
     cardHeader : {
@@ -46,38 +47,21 @@ function findAuthor(userId) {
 
 export default function Recommendation() {
     const classes = useStyles();
-    var recommendations = recommendedBooks();
+    let recommendations = recommendedBooks();
     return (
         <Card variant="outlined">
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5" onCl>
-                            {findAuthor(recommendations[0].authorId).userName}
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            {findAuthor(recommendations[1].authorId).userName}
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            {findAuthor(recommendations[2].authorId).userName}
-                        </Typography>
-                    </Card>
-                </Grid>
-                <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Typography variant="body1">
-                        {recommendations[0].name}
-                    </Typography>
-                    <Typography variant="body1">
-                        {recommendations[1].name}
-                    </Typography>
-                    <Typography variant="body1">
-                        {recommendations[2].name}
-                    </Typography>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[0].authorId).userName} bookName={recommendations[0].name}/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[1].authorId).userName} bookName={recommendations[1].name}/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[2].authorId).userName} bookName={recommendations[2].name}/>
+                    </Grid>
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardAction}>

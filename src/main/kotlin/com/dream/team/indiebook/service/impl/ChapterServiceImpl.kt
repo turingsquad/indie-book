@@ -43,7 +43,7 @@ class ChapterServiceImpl : ChapterService {
     }
 
     override fun createChapter(chapterVo: ChapterVo) {
-        val domainEntity = Chapter(null, chapterVo.bookId, chapterVo.name, LocalDateTime.now())
+        val domainEntity = Chapter(null, chapterVo.bookId, chapterVo.name, LocalDateTime.now(), chapterVo.description)
         val saved = chapterRepository.save(domainEntity)
         textMongoRepository.save(Text(saved.id, chapterVo.text ?: ""))
     }
@@ -58,7 +58,8 @@ class ChapterServiceImpl : ChapterService {
                 it.name,
                 it.creationDate,
                 text?.text,
-                commentCount
+                commentCount,
+                it.description
             )
         }
     }

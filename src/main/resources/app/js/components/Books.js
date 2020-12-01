@@ -1,5 +1,6 @@
 import * as React from "react";
 import Book from "./entities/Book";
+import '../../styles/BookItem.css';
 import "regenerator-runtime/runtime.js";
 
 function getBooksByUser(userId) {
