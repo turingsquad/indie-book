@@ -7,6 +7,12 @@ import Container from "@material-ui/core/Container";
 import "easymde/dist/easymde.min.css";
 import Footer from "./Footer";
 import Book from "./Book";
+import MainAfterAuth from "./MainAfterAuth";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Books from "./Books";
+import HeaderAfterAuth from "./header/HeaderAfterAuth";
+import TextEditor from "./TextEditor";
+import Text from "./Text";
 
 const sections = [
     new Section("Книги", "/books")
@@ -16,15 +22,25 @@ let text = "Далеко-далеко за словесными горами в 
 class App extends Component {
     render() {
         return (
+            <Router>
             <React.Fragment>
                 <CssBaseline />
-                <Header title="Indie Book"/>
+                <HeaderAfterAuth title="Indie Book"/>
                 <Container>
-                    <Book bookName="Book Name" author="Author Name" text={text}/>
+                    <Text/>
                 </Container>
                 <Footer/>
 
             </React.Fragment>
+                <Switch>
+                    <Route path="/f/books">
+                        <Books/>
+                    </Route>
+                    <Route path="/f/home">
+                        <MainAfterAuth/>
+                    </Route>
+                </Switch>
+            </Router>
         );
     }
 

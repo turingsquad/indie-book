@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainAfterAuth() {
     const classes = useStyles();
-
     return (
         <Container className={classes.component}>
             <Grid container lg={12} direction="row" justify="space-between" alignItems="flex-start">

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HeaderAfterAuth(props) {
     const classes = useStyles();
-    const { title } = props;
+    const {title} = props;
 
     return (
         <React.Fragment>

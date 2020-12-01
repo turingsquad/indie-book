@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         minHeight: '20vh',
         width: "100%",
-        bottom : 0
+        bottom : 0,
+        position: "absolute"
     },
     footer: {
         width: "100%",
