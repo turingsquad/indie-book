@@ -47,6 +47,7 @@ class BookServiceImpl : BookService {
             bookVo.authorId,
             bookVo.name,
             LocalDateTime.now(),
+
             tagService.viewsToEntities(bookVo.tags ?: emptyList()),
             bookVo.description
         )
