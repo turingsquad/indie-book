@@ -14,11 +14,11 @@ import HeaderAfterAuth from "./header/HeaderAfterAuth";
 import TextEditor from "./TextEditor";
 import Text from "./Text";
 
+
 const sections = [
     new Section("Книги", "/books")
 ]
 
-let text = "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные члены предложения...";
 class App extends Component {
     render() {
         return (
@@ -27,10 +27,9 @@ class App extends Component {
                 <CssBaseline />
                 <HeaderAfterAuth title="Indie Book"/>
                 <Container>
-                    <Text/>
+                    <MainAfterAuth/>
                 </Container>
                 <Footer/>
-
             </React.Fragment>
                 <Switch>
                     <Route path="/f/books">

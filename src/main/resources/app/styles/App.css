@@ -1,7 +1,13 @@
-h1 {
-    color: #27aedb;
-    text-align: center;
-}
 .chapter {
     display: inline;
+}
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+ol {
+    list-style-type: decimal;
+    margin: 0;
+    padding-left: 25px;
 }

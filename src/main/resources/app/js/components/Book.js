@@ -15,6 +15,33 @@ import Link from "@material-ui/core/Link";
 let array = ['tag1', 'tag2', 'tag3'];
 let chapters = ['Chapter Name #1', 'Chapter Name #2', 'Chapter Name #3'];
 
+function findBook(bookId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/book/" + bookId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
+function findAuthor(userId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
+function findChapters(bookId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/books/chapters/" + bookId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
 const useStyles = makeStyles((theme) => ({
     container : {
         marginTop: theme.spacing(2)
@@ -38,23 +65,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Book(props) {
     const classes = useStyles();
-    const {bookName, author, text} = props;
+    const {text} = props;
+    const book = findBook(2);
     return (
         <Container maxWidth="md" className={classes.container}>
             <Card>
                 <CardContent>
                     <Typography variant="h3" align="center">
-                        {bookName}
+                        {book.name}
                     </Typography>
                     <Grid container direction="row" justify="space-between" alignItems="flex-start">
                         <Grid item>
-                        <Typography variant="h4" className={classes.line}>
-                            {author}
+                        <Typography variant="h5" className={classes.line}>
+                            {findAuthor(book.authorId).userName}
                         </Typography>
                             </Grid>
                         <Grid item>
                             <ul>
-                                {array.map(item => { return <li className="tag"><Chip className={classes.chip} label={item}/></li>;
+                                {book.tags.map(item => { return <li className="tag"><Chip className={classes.chip} label={item.name}/></li>;
                                 })}
                                 </ul>
                         </Grid>
@@ -63,13 +91,13 @@ export default function Book(props) {
                         Description
                     </Typography>
                     <Typography variant="body1" className={classes.line}>
-                        {text}
+                        {book.description}
                     </Typography>
                     <Grid container direction="row" justify="flex-start">
                         <Grid item>
                             <IconButton>
                                 <Typography variant="body1" className={classes.num}>
-                                    10
+                                    {book.likeCount}
                                 </Typography>
                                 <ThumbUpAltIcon/>
                             </IconButton>
@@ -77,7 +105,7 @@ export default function Book(props) {
                         <Grid item>
                             <IconButton>
                                 <Typography variant="body1" className={classes.num}>
-                                    2
+                                    {book.dislikeCount}
                                 </Typography>
                                 <ThumbDownAltIcon/>
                             </IconButton>
@@ -87,17 +115,16 @@ export default function Book(props) {
                         Chapters
                     </Typography>
                     <ol>
-                        {chapters.map(item => {
+                        {findChapters(2).map(item => {
                             return (
-                                <li >
-                                    
+                                <li>
                                     <div className="chapter">
                                     <Link href="#" variant="h6">
-                                        {item}
+                                        {item.name}
                                     </Link>
                                         <IconButton>
                                             <Typography variant="body1" className={classes.num}>
-                                                6
+                                                {item.commentCount}
                                             </Typography>
                                             <CommentIcon/>
                                         </IconButton>

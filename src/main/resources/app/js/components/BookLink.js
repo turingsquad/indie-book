@@ -17,21 +17,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function BookLink() {
+export default function BookLink(props) {
     const classes = useStyles();
-
+    let {bookName, author} = props;
     return (
         <Container>
             <Grid container direction="row" justify="center" alignItems="flex-start">
-                <Link href="#" underline="none">
+                <Link href="/f/books" underline="none">
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
-                            Book1
+                            {author}
                         </Typography>
                     </Card>
                 </Link>
             <Typography align="center">
-                text
+                {bookName}
             </Typography>
             </Grid>
         </Container>

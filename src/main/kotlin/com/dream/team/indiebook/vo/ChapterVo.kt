@@ -13,5 +13,6 @@ data class ChapterVo(
     val name: String?,
     val creationDate: LocalDateTime?,
     val text: String?,
-    val commentCount: Int
+    val commentCount: Int,
+    val description: String?
 )

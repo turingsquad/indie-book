@@ -11,12 +11,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '20vh',
-        width: "100%",
-        bottom : 0,
-        position: "absolute"
+        maxHeight: '100vh',
+        position: "relative",
+        width: "100%"
     },
     footer: {
+        position: "absolute",
         width: "100%",
+        bottom : 0,
         padding: theme.spacing(1, 0),
         marginTop: 'auto',
         background: "#424242"

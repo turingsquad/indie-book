@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import SimpleMDE from "react-simplemde-editor";
+import React, {Component, useState} from "react";
+import SimpleMDEReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import {Container, Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -17,12 +17,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TextEditor() {
-    let handleChange = value => {
-        this.setState({ mdeValue: value });
+    const [value, setValue] = useState("");
+    const [value2, setValue2] = useState("");
+    const [value3, setValue3] = useState("");
+    const [text, setText] = useState("");
+
+    const handleChange = e => {
+        setText(e.target.value);
     };
 
-    const classes = useStyles();
+    const handleForm1 = e => {
+        setValue(e.target.value);
+    }
 
+    const handleForm2 = e => {
+        setValue2(e.target.value);
+    }
+
+    const handleForm3 = e => {
+        setValue3(e.target.value);
+    }
+
+    const buttonClick = e => {
+        console.log(value3);
+    }
+    const classes = useStyles();
     const array = ['table', 'image', 'fullscreen', 'side-by-side']
 
     return (
@@ -31,13 +50,38 @@ export default function TextEditor() {
                 <Grid item lg={4}>
                 <form>
                     <TextField
+                        value={value}
+                        onChange={handleForm1}
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="Title"
-                        name="title"
-                        label="Title"
+                        id="Bookname"
+                        name="bookName"
+                        label="Book Name"
+                    />
+                    <TextField
+                        value={value2}
+                        onChange={handleForm2}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        multiline
+                        id="Description"
+                        name="description"
+                        label="Description"
+                    />
+
+                    <TextField
+                        value={value3}
+                        onChange={handleForm3}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="ChapterName"
+                        name="chapterName"
+                        label="Chapter Name"
                         />
 
                 </form>
@@ -45,18 +89,20 @@ export default function TextEditor() {
             </Grid>
             <Grid container lg={12} direction="row" justify="center" alignItems="flex-start">
                 <Grid item lg={7}>
-                    <SimpleMDE onChange={handleChange}
-                    options={{
-                        hideIcons : array,
-                        autoFocus : true,
-                        maxHeight : "400px",
-                        minHeight : "400px",
-                        syncSideBySidePreviewScroll: false
-                    }}
+                    <SimpleMDEReact
+                        value={text}
+                        onChange={handleChange}
+                        options={{
+                            hideIcons : array,
+                            autoFocus : true,
+                            maxHeight : "400px",
+                            minHeight : "400px",
+                            syncSideBySidePreviewScroll: false
+                        }}
                     />
                 </Grid>
             </Grid>
-            <Button variant="contained" size="large" className={classes.button}>Save</Button>
+            <Button variant="contained" size="large" className={classes.button} onClick={buttonClick}>Save</Button>
         </Container>
     )
 }

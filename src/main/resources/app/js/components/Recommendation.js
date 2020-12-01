@@ -47,20 +47,20 @@ function findAuthor(userId) {
 
 export default function Recommendation() {
     const classes = useStyles();
-    var recommendations = recommendedBooks();
+    let recommendations = recommendedBooks();
     return (
         <Card variant="outlined">
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                     <Grid item lg={3}>
-                        <BookLink/>
+                        <BookLink author={findAuthor(recommendations[0].authorId).userName} bookName={recommendations[0].name}/>
                     </Grid>
                     <Grid item lg={3}>
-                        <BookLink/>
+                        <BookLink author={findAuthor(recommendations[1].authorId).userName} bookName={recommendations[1].name}/>
                     </Grid>
                     <Grid item lg={3}>
-                        <BookLink/>
+                        <BookLink author={findAuthor(recommendations[2].authorId).userName} bookName={recommendations[2].name}/>
                     </Grid>
                 </Grid>
             </CardContent>

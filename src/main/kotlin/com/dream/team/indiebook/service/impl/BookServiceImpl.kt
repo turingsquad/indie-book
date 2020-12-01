@@ -47,7 +47,8 @@ class BookServiceImpl : BookService {
             bookVo.authorId,
             bookVo.name,
             LocalDateTime.now(),
-            tagService.viewsToEntities(bookVo.tags ?: emptyList())
+            tagService.viewsToEntities(bookVo.tags ?: emptyList()),
+            bookVo.description
         )
         bookRepository.save(domainEntity)
     }
@@ -81,7 +82,8 @@ class BookServiceImpl : BookService {
                 chapterCount,
                 likeCount,
                 dislikeCount,
-                tagService.entitiesToViews(it.tags ?: emptyList())
+                tagService.entitiesToViews(it.tags ?: emptyList()),
+                it.description
             )
         }
     }
