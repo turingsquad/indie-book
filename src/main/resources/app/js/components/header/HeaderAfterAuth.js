@@ -11,6 +11,8 @@ import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import CreateRounded from '@material-ui/icons/CreateRounded';
+import {Link as RouterLink, Link} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -64,23 +66,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function HeaderAfterAuth(props) {
+export default function HeaderAfterAuth() {
     const classes = useStyles();
-    const {title} = props;
 
     return (
         <React.Fragment>
             <AppBar position="static" className={classes.appbar}>
                 <Container>
                     <Toolbar>
-                        <Typography
-                            variant="h5"
-                            color="inherit"
-                            noWrap
-                            className={classes.toolbarTitle}
-                        >
-                            {title}
-                        </Typography>
+                            <Typography
+                                variant="h5"
+                                color="inherit"
+                                noWrap
+                                className={classes.toolbarTitle}
+                            >
+                                 Indie book
+                            </Typography>
                         <Typography
                             variant="body2"
                             color="inherit"
@@ -101,7 +102,7 @@ export default function HeaderAfterAuth(props) {
                                 Authors
                             </Button>
                         </Typography>
-                        <IconButton edge="end" color="inherit">
+                        <IconButton edge="end" color="inherit" component={Link} to="/editor">
                             <CreateRounded className={classes.icon}/>
                         </IconButton>
                         <div className={classes.search}>

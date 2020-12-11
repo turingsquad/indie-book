@@ -10,11 +10,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '20vh',
-        maxHeight: '100vh',
+        minHeight: '60vh',
+        maxHeight: '800vh',
         position: "relative",
         width: "100%"
     },
+
     footer: {
         position: "absolute",
         width: "100%",

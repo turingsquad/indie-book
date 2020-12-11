@@ -25,7 +25,6 @@ export default function MainAfterAuth() {
                     <ContinueReading/>
                 </Grid>
             </Grid>
-            <News/>
         </Container>
     );
 }

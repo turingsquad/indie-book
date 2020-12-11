@@ -5,9 +5,13 @@ html,
 body {
     height: 100%;
     position: relative;
+    margin: 0;
 }
 ol {
     list-style-type: decimal;
     margin: 0;
     padding-left: 25px;
+}
+.root {
+    position: absolute;
 }

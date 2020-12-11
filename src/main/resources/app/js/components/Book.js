@@ -44,7 +44,7 @@ function findChapters(bookId) {
 
 const useStyles = makeStyles((theme) => ({
     container : {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(3)
     },
     chip : {
         marginLeft: theme.spacing(1)
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Book(props) {
     const classes = useStyles();
-    const {text} = props;
-    const book = findBook(2);
+    let {id} = props;
+    const book = findBook(id);
     return (
         <Container maxWidth="md" className={classes.container}>
             <Card>

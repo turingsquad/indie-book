@@ -43,7 +43,7 @@ export default function Editor() {
     }
 
     const buttonClick = e => {
-        console.log(value3);
+
     }
     const classes = useStyles();
 
@@ -88,8 +88,8 @@ export default function Editor() {
                         />
 
                         <TextField
-                            value={value2}
-                            onChange={handleForm2}
+                            value={value4}
+                            onChange={handleForm4}
                             variant="outlined"
                             margin="normal"
                             fullWidth
