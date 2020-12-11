@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import CreateRounded from '@material-ui/icons/CreateRounded';
-import {Link as RouterLink, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -102,12 +102,12 @@ export default function HeaderAfterAuth() {
                                 Authors
                             </Button>
                         </Typography>
-                        <IconButton edge="end" color="inherit" component={Link} to="/editor">
+                        <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
                             <CreateRounded className={classes.icon}/>
                         </IconButton>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                                <SearchIcon />
+                                <SearchIcon/>
                             </div>
                             <InputBase
                                 placeholder="Search…"

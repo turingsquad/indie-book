@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 class IndexController {
 
-    @RequestMapping("/f/*")
+    @RequestMapping(path = ["/f/*"])
     fun frontendRedirect(): String {
-        return "redirect:/"
+        return "forward:/"
     }
 }

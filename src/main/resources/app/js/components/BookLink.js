@@ -24,7 +24,7 @@ export default function BookLink(props) {
     return (
         <Container>
             <Grid container direction="row" justify="center" alignItems="flex-start">
-                <Link component={RouterLink} to={"/book/" + id} underline="none">
+                <Link component={RouterLink} to={"/f/book/" + id} underline="none">
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
                             {author}

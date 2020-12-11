@@ -1,5 +1,5 @@
 export default {
     mainPage: '/',
-    bookPage: '/book/:id',
-    editorPage: '/editor'
+    bookPage: '/f/book/:id',
+    editorPage: '/f/editor'
 }
