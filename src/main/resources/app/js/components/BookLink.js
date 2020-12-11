@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BookLink(props) {
     const classes = useStyles();
-    let {bookName, author} = props;
+    let {bookName, author, id} = props;
     return (
         <Container>
             <Grid container direction="row" justify="center" alignItems="flex-start">
-                <Link component={RouterLink} href={"/f/book/" + props.id} to={"/f/book/" + props.id} underline="none">
+                <Link component={RouterLink} to={"/book/" + id} underline="none">
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
                             {author}

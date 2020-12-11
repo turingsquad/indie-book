@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import CardHeader from '@material-ui/core/CardHeader';
 import Link from '@material-ui/core/Link';
 import CardActions from '@material-ui/core/CardActions';
+import BookLink from "./BookLink";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,21 +28,34 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+function findAuthor(userId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
+function findBook(bookId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/book/" + bookId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    console.log(json)
+    return json
+}
+
+
 export default function ContinueReading() {
     const classes = useStyles();
-
+    const book = findBook(3);
     return (
         <Card variant="outlined">
             <CardHeader title="Continue Reading" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-around" alignItems="center">
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Typography variant="h5" align="center">
-                                Your books
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                    <BookLink bookName={book.name} author={findAuthor(book.authorId).userName}/>
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardAction}>

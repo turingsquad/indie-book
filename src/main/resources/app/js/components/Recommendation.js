@@ -54,16 +54,13 @@ export default function Recommendation() {
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
                     <Grid item lg={3}>
-                        <BookLink author={findAuthor(recommendations[0].authorId).userName}
-                                  bookName={recommendations[0].name} id={recommendations[0].id}/>
+                        <BookLink author={findAuthor(recommendations[0].authorId).userName} bookName={recommendations[0].name} id={recommendations[0].id}/>
                     </Grid>
                     <Grid item lg={3}>
-                        <BookLink author={findAuthor(recommendations[1].authorId).userName}
-                                  bookName={recommendations[1].name} id={recommendations[1].id}/>
+                        <BookLink author={findAuthor(recommendations[1].authorId).userName} bookName={recommendations[1].name} id={recommendations[1].id}/>
                     </Grid>
                     <Grid item lg={3}>
-                        <BookLink author={findAuthor(recommendations[2].authorId).userName}
-                                  bookName={recommendations[2].name} id={recommendations[2].id}/>
+                        <BookLink author={findAuthor(recommendations[2].authorId).userName} bookName={recommendations[2].name} id={recommendations[2].id}/>
                     </Grid>
                 </Grid>
             </CardContent>
