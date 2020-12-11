@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Header from "./header/Header";
 import Section from "./header/sections"
 import '../../styles/App.css';
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,8 +10,6 @@ import MainAfterAuth from "./MainAfterAuth";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Books from "./Books";
 import HeaderAfterAuth from "./header/HeaderAfterAuth";
-import TextEditor from "./TextEditor";
-import Text from "./Text";
 
 
 const sections = [
@@ -23,22 +20,24 @@ class App extends Component {
     render() {
         return (
             <Router>
-            <React.Fragment>
                 <CssBaseline />
                 <HeaderAfterAuth title="Indie Book"/>
                 <Container>
                     <MainAfterAuth/>
                 </Container>
                 <Footer/>
-            </React.Fragment>
                 <Switch>
                     <Route path="/f/books">
                         <Books/>
                     </Route>
-                    <Route path="/f/home">
-                        <MainAfterAuth/>
+                    <Route path="/">
+                        <Container>
+                            <MainAfterAuth/>
+                        </Container>
                     </Route>
+                    <Route path="/f/book/:id" children={<Book/>}/>
                 </Switch>
+                <Footer/>
             </Router>
         );
     }

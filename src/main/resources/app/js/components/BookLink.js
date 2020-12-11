@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Link from '@material-ui/core/Link';
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     cardHeader: {
@@ -23,16 +24,16 @@ export default function BookLink(props) {
     return (
         <Container>
             <Grid container direction="row" justify="center" alignItems="flex-start">
-                <Link href="/f/books" underline="none">
+                <Link component={RouterLink} href={"/f/book/" + props.id} to={"/f/book/" + props.id} underline="none">
                     <Card className={classes.card}>
                         <Typography align="center" variant="h5">
                             {author}
                         </Typography>
                     </Card>
                 </Link>
-            <Typography align="center">
-                {bookName}
-            </Typography>
+                <Typography align="center">
+                    {bookName}
+                </Typography>
             </Grid>
         </Container>
     )

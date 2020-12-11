@@ -11,13 +11,13 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import CommentIcon from '@material-ui/icons/Comment';
 import Link from "@material-ui/core/Link";
+import constants from "./constants/contants";
+import {useParams} from "react-router-dom";
 
-let array = ['tag1', 'tag2', 'tag3'];
-let chapters = ['Chapter Name #1', 'Chapter Name #2', 'Chapter Name #3'];
 
 function findBook(bookId) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/book/" + bookId, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/book/" + bookId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -26,7 +26,7 @@ function findBook(bookId) {
 
 function findAuthor(userId) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -35,7 +35,7 @@ function findAuthor(userId) {
 
 function findChapters(bookId) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/books/chapters/" + bookId, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/books/chapters/" + bookId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Book(props) {
     const classes = useStyles();
-    const {text} = props;
-    const book = findBook(2);
+    let {id} = useParams();
+    const book = findBook(id);
     return (
         <Container maxWidth="md" className={classes.container}>
             <Card>
@@ -76,7 +76,7 @@ export default function Book(props) {
                     </Typography>
                     <Grid container direction="row" justify="space-between" alignItems="flex-start">
                         <Grid item>
-                        <Typography variant="h5" className={classes.line}>
+                            <Typography variant="h5" className={classes.line}>
                             {findAuthor(book.authorId).userName}
                         </Typography>
                             </Grid>
