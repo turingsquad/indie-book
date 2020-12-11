@@ -1,6 +1,5 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -8,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import CardActions from '@material-ui/core/CardActions';
 import Link from '@material-ui/core/Link';
 import BookLink from "./BookLink";
+import constants from "./constants/contants";
 
 const useStyles = makeStyles((theme) => ({
     cardHeader : {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 function recommendedBooks() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/books/random/" + 3, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/books/random/" + 3, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -38,7 +38,7 @@ function recommendedBooks() {
 
 function findAuthor(userId) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Header from "./header/Header";
 import Section from "./header/sections"
 import '../../styles/App.css';
 import "easymde/dist/easymde.min.css";
@@ -31,6 +30,7 @@ class App extends Component {
                     <Route exact path={routes.bookPage} component={BookPage} />
                     <Route exact path={routes.editorPage} component={EditorPage}/>
                 </Switch>
+                <Footer/>
             </Router>
         )
     }
