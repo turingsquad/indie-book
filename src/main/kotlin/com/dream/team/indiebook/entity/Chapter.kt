@@ -19,7 +19,9 @@ class Chapter(
     @get:Column(name = "name")
     var name: String?,
     @get:Column(name = "creation_date")
-    var creationDate: LocalDateTime?
+    var creationDate: LocalDateTime?,
+    @get:Column(name = "description")
+    var description: String?
 ) {
-    constructor() : this(null, null, null, null)
+    constructor() : this(null, null, null, null, null)
 }

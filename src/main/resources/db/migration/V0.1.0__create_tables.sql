@@ -24,7 +24,8 @@ CREATE TABLE books
     id            bigint PRIMARY KEY,
     name          varchar(128),
     author_id     bigint REFERENCES users (id),
-    creation_date timestamp
+    creation_date timestamp,
+    description   text
 );
 
 CREATE TABLE chapters
@@ -32,5 +33,6 @@ CREATE TABLE chapters
     id            bigint PRIMARY KEY,
     name          varchar(128),
     book_id       bigint REFERENCES books (id),
-    creation_date timestamp
+    creation_date timestamp,
+    description   text
 )

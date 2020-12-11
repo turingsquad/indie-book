@@ -1,12 +1,13 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import {makeStyles} from "@material-ui/core/styles";
 import CardActions from '@material-ui/core/CardActions';
 import Link from '@material-ui/core/Link';
+import BookLink from "./BookLink";
+import constants from "./constants/contants";
 
 const useStyles = makeStyles((theme) => ({
     cardHeader : {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 function recommendedBooks() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/books/random/" + 3, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/books/random/" + 3, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -37,7 +38,7 @@ function recommendedBooks() {
 
 function findAuthor(userId) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
     console.log(json)
@@ -46,38 +47,24 @@ function findAuthor(userId) {
 
 export default function Recommendation() {
     const classes = useStyles();
-    var recommendations = recommendedBooks();
+    let recommendations = recommendedBooks();
     return (
         <Card variant="outlined">
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5" onCl>
-                            {findAuthor(recommendations[0].authorId).userName}
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            {findAuthor(recommendations[1].authorId).userName}
-                        </Typography>
-                    </Card>
-                    <Card className={classes.card}>
-                        <Typography align="center" variant="h5">
-                            {findAuthor(recommendations[2].authorId).userName}
-                        </Typography>
-                    </Card>
-                </Grid>
-                <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Typography variant="body1">
-                        {recommendations[0].name}
-                    </Typography>
-                    <Typography variant="body1">
-                        {recommendations[1].name}
-                    </Typography>
-                    <Typography variant="body1">
-                        {recommendations[2].name}
-                    </Typography>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[0].authorId).userName}
+                                  bookName={recommendations[0].name} id={recommendations[0].id}/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[1].authorId).userName}
+                                  bookName={recommendations[1].name} id={recommendations[1].id}/>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <BookLink author={findAuthor(recommendations[2].authorId).userName}
+                                  bookName={recommendations[2].name} id={recommendations[2].id}/>
+                    </Grid>
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardAction}>

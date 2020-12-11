@@ -49,6 +49,11 @@ class BookApiController {
         chapterService.createChapter(chapterVo)
     }
 
+    @GetMapping("/api/v1/book/{bookId}")
+    fun findBookById(@PathVariable bookId: Long) : BookVo {
+        return bookService.findById(bookId)
+    }
+
     @GetMapping("/api/v1/tags")
     fun findAllTags(): List<TagVo> {
         return tagService.findAllTags()
