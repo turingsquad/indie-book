@@ -1,14 +1,14 @@
 import React from 'react'
-import HeaderAfterAuth from "./header/HeaderAfterAuth";
+import Header from "./header/Header";
 import Footer from "./Footer";
 import TextEditor from "./TextEditor";
 
 export default function EditorPage() {
     return (
         <React.Fragment>
-            <HeaderAfterAuth />
-            <TextEditor />
-            <Footer />
+            <Header/>
+            <TextEditor/>
+            <Footer/>
         </React.Fragment>
     )
 }

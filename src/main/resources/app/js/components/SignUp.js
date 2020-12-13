@@ -1,10 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Auth from "./auth/Auth";
+import State from "./State";
 
-const useStyles = makeStyles((theme) => ({
+const styles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -22,8 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-    const classes = useStyles();
-
+    let auth = new Auth();
+    let state = new State();
+    const classes = styles();
     return (
         <Container>
             <form className={classes.form} noValidate>
@@ -36,6 +39,8 @@ export default function SignUp() {
                     label="User Name"
                     name="userName2"
                     autoComplete="userName"
+                    value={state.getUsername()}
+                    onChange={state.handleUsernameChange}
                 />
                 <TextField
                     variant="outlined"
@@ -47,6 +52,8 @@ export default function SignUp() {
                     type="password"
                     id="password2"
                     autoComplete="current-password2"
+                    value={state.getPassword()}
+                    onChange={state.handlePasswordChange}
                 />
                 <TextField
                     variant="outlined"
@@ -63,6 +70,7 @@ export default function SignUp() {
                     fullWidth
                     variant="contained"
                     className={classes.submit}
+                    onClick={state.signUpByState}
                 >
                     Sign Up
                 </Button>

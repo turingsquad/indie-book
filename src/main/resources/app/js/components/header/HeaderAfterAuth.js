@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import CreateRounded from '@material-ui/icons/CreateRounded';
-import {Link} from 'react-router-dom';
+import {Link as RouterLink, Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,61 +68,66 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HeaderAfterAuth() {
     const classes = useStyles();
+    const {title} = props;
 
     return (
         <React.Fragment>
             <AppBar position="static" className={classes.appbar}>
-                <Container>
-                    <Toolbar>
+                <Link component={RouterLink} to={"/"} underline="none">
+                    <Container>
+                        <Toolbar>
+                            <Link component={RouterLink} to={"/"} underline="none">
+                                <Typography
+                                    variant="h5"
+                                    color="inherit"
+                                    noWrap
+                                    className={classes.toolbarTitle}
+                                >
+                                    {title}
+                                </Typography>
+                            </Link>
                             <Typography
-                                variant="h5"
+                                variant="body2"
                                 color="inherit"
                                 noWrap
-                                className={classes.toolbarTitle}
+                                className={classes.link}
                             >
-                                 Indie book
+                                <Button color="inherit">
+                                    Article
+                                </Button>
                             </Typography>
-                        <Typography
-                            variant="body2"
-                            color="inherit"
-                            noWrap
-                            className={classes.link}
-                        >
-                            <Button color="inherit">
-                                Article
-                            </Button>
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            color="inherit"
-                            noWrap
-                            className={classes.link}
-                        >
-                            <Button color="inherit">
-                                Authors
-                            </Button>
-                        </Typography>
-                        <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
-                            <CreateRounded className={classes.icon}/>
-                        </IconButton>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon/>
+                            <Typography
+                                variant="body2"
+                                color="inherit"
+                                noWrap
+                                className={classes.link}
+                            >
+                                <Button color="inherit">
+                                    Authors
+                                </Button>
+                            </Typography>
+                            <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
+                                <CreateRounded className={classes.icon}/>
+                            </IconButton>
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon/>
+                                </div>
+                                <InputBase
+                                    placeholder="Search…"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                />
                             </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
-                        <IconButton edge="end" color="inherit">
-                            Name
-                            <AccountCircle className={classes.icon}/>
-                        </IconButton>
-                    </Toolbar>
-                </Container>
+                            <IconButton edge="end" color="inherit">
+                                Name
+                                <AccountCircle className={classes.icon}/>
+                            </IconButton>
+                        </Toolbar>
+                    </Container>
+                </Link>
             </AppBar>
         </React.Fragment>
     );

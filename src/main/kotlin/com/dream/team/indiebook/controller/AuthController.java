@@ -31,12 +31,12 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody final SignUpRequestVO signUpRequestVO) {
+    public ResponseEntity<JwtResponseVO> registerUser(@Valid @RequestBody final SignUpRequestVO signUpRequestVO) {
 
         if (userService.existsByUsername(signUpRequestVO.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body("This username is already taken!");
+                    .body(null);
         }
 
         final String answer;
@@ -44,9 +44,9 @@ public class AuthController {
         try {
             answer = userService.saveUser(signUpRequestVO);
         } catch (final IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body("Incorrect role");
+            return ResponseEntity.badRequest().body(null);
         }
 
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(userService.authenticateUser(new SignInRequestVO(signUpRequestVO.getUsername(), signUpRequestVO.getPassword())));
     }
 }

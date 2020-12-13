@@ -12,7 +12,7 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import CommentIcon from '@material-ui/icons/Comment';
 import Link from "@material-ui/core/Link";
 import constants from "./constants/contants";
-import {useParams} from "react-router-dom";
+import Auth from "./auth/Auth";
 
 
 function findBook(bookId) {
@@ -42,14 +42,26 @@ function findChapters(bookId) {
     return json
 }
 
+function registerEvent(bookId) {
+    let auth = new Auth()
+    if (auth.isAuthenticated()) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", constants.backendHost + "/api/v1/book/log/register", false)
+        xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader())
+        xhr.send(JSON.stringify({
+            bookId: bookId
+        }))
+    }
+}
+
 const useStyles = makeStyles((theme) => ({
-    container : {
+    container: {
         marginTop: theme.spacing(3)
     },
-    chip : {
+    chip: {
         marginLeft: theme.spacing(1)
     },
-    line : {
+    line: {
         marginTop: theme.spacing(1)
     },
     num : {
@@ -67,6 +79,7 @@ export default function Book(props) {
     const classes = useStyles();
     let {id} = props;
     const book = findBook(id);
+    registerEvent(id)
     return (
         <Container maxWidth="md" className={classes.container}>
             <Card>

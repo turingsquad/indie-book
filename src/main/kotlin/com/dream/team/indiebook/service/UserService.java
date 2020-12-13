@@ -66,10 +66,10 @@ public class UserService {
         final User user = new User(signupRequestVO.getUsername(),
                 passwordEncoder.encode(signupRequestVO.getPassword()));
 
-        final Set<RoleName> roleNames = signupRequestVO.getRole()
-                .stream()
+        final Set<RoleName> roleNames = null; //TODO убрать роли
+        /*        .stream()
                 .map(it -> RoleName.valueOf("ROLE_" + it.toUpperCase()))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toSet());*/
         final Set<Role> roles = new HashSet<>();
 
         if (roleNames == null) {
@@ -107,6 +107,11 @@ public class UserService {
 
     public UserVo findUserById(final Long id) {
         final var entity = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new UserVo(entity.getId(), entity.getUsername());
+    }
+
+    public UserVo findUserByName(final String name) {
+        final var entity = userRepository.findByUsername(name);
         return new UserVo(entity.getId(), entity.getUsername());
     }
 }
