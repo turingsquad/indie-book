@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
 import {Link as RouterLink} from 'react-router-dom';
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -69,35 +70,58 @@ export default function HeaderBeforeAuth(props) {
             <AppBar position="static" className={classes.appbar}>
                 <Container>
                     <Toolbar>
-                        <Link component={RouterLink} to={"/"} underline="none">
-                            <Typography
-                                variant="h5"
-                                color="inherit"
-                                noWrap
-                                className={classes.toolbarTitle}
-                            >
-                                {title}
-                            </Typography>
-                        </Link>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon/>
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
-                        <Link component={RouterLink} to={"/f/signIn"} underline="none">
-                            <Button className={classes.button} size="small" color="inherit">Sign in</Button>
-                        </Link>
-                        <Link component={RouterLink} to={"/f/signUp"} underline="none">
-                            <Button className={classes.button} variant="outlined" size="small" color="inherit">Sign
-                                up</Button>
-                        </Link>
+                        <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
+                            <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
+                                <Grid item>
+                                <Link component={RouterLink} to={"/"} underline="none" color="inherit">
+                                    <Typography
+                                        variant="h5"
+                                        noWrap
+                                        className={classes.toolbarTitle}
+                                    >
+                                        {title}
+                                    </Typography>
+                                </Link>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
+                                <Grid item>
+                                <div className={classes.search}>
+                                    <div className={classes.searchIcon}>
+                                        <SearchIcon/>
+                                    </div>
+                                    <InputBase
+                                        placeholder="Search…"
+                                        classes={{
+                                            root: classes.inputRoot,
+                                            input: classes.inputInput,
+                                        }}
+                                    />
+                                </div>
+                                </Grid>
+                                <Grid item>
+                                    <Button className={classes.button}
+                                            size="small"
+                                            to={"/f/signIn"}
+                                            color="inherit"
+                                            component={RouterLink}
+                                    >
+                                        Sign in
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button className={classes.button}
+                                            variant="outlined"
+                                            size="small"
+                                            to={"/f/signUp"}
+                                            color="inherit"
+                                            component={RouterLink}
+                                    >
+                                        Sign up
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </Container>
             </AppBar>

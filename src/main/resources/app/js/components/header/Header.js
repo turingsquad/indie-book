@@ -8,7 +8,7 @@ export default function Header(props) {
     const {title} = props;
     const auth = new Auth()
     if (auth.isAuthenticated()) {
-        return <HeaderAfterAuth title={"Indie Book"}/>
+        return <HeaderAfterAuth />
     } else {
         return <HeaderBeforeAuth title={"Indie Book"}/>
     }
