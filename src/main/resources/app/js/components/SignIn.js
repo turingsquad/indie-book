@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Auth from "./auth/Auth";
 import State from "./State";
+import {useHistory} from 'react-router-dom';
 
 
 const styles = makeStyles((theme) => ({
@@ -30,9 +30,9 @@ const styles = makeStyles((theme) => ({
 
 
 export default function SignIn() {
-    let auth = new Auth();
     let state = new State();
     const classes = styles();
+    const history = useHistory();
     return (
         <Container>
             <form className={classes.form} noValidate>
@@ -43,7 +43,6 @@ export default function SignIn() {
                     fullWidth
                     id="userName1"
                     label="User Name"
-                    name="userName1"
                     autoComplete="userName"
                     value={state.getUsername()}
                     onChange={state.handleUsernameChange}
@@ -53,7 +52,6 @@ export default function SignIn() {
                     margin="normal"
                     required
                     fullWidth
-                    name="password1"
                     label="Password"
                     type="password"
                     id="password1"
@@ -65,7 +63,10 @@ export default function SignIn() {
                     type="submit"
                     variant="contained"
                     className={classes.submit}
-                    onClick={state.signInByState}
+                    onClick={() => {
+                        state.signInByState()
+                        history.goBack()
+                    }}
                 >
                     Sign In
                 </Button>

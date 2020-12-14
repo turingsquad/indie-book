@@ -120,7 +120,10 @@ export default function HeaderAfterAuth(props) {
                                     }}
                                 />
                             </div>
-                        <IconButton edge="end" color="inherit" onClick={new Auth().signOff}>
+                        <IconButton edge="end" color="inherit" onClick={() => {
+                            new Auth().signOff()
+                            window.location.reload()
+                        }}>
                             Sign off
                         </IconButton>
                     </Toolbar>

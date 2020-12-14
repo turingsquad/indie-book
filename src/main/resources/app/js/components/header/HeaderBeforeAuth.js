@@ -9,7 +9,7 @@ import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -92,10 +92,15 @@ export default function HeaderBeforeAuth(props) {
                             />
                         </div>
                         <Link component={RouterLink} to={"/f/signIn"} underline="none">
-                            <Button className={classes.button} size="small" color="inherit">Sign in</Button>
+                            <Button className={classes.button} size="small" color="inherit" onClick={() => {
+                                useHistory().push("/")
+                            }}>Sign in</Button>
                         </Link>
                         <Link component={RouterLink} to={"/f/signUp"} underline="none">
-                            <Button className={classes.button} variant="outlined" size="small" color="inherit">Sign
+                            <Button className={classes.button} variant="outlined" size="small" color="inherit"
+                                    onClick={() => {
+                                        useHistory().push("/")
+                                    }}>Sign
                                 up</Button>
                         </Link>
                     </Toolbar>

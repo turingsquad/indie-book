@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Section from "./header/sections"
 import '../../styles/App.css';
 import "easymde/dist/easymde.min.css";
 import {HashRouter as Router, Route, Switch} from 'react-router-dom';
@@ -9,11 +8,6 @@ import EditorPage from "./EditorPage";
 import BookPage from "./BookPage";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-
-
-const sections = [
-    new Section("Книги", "/books")
-]
 
 
 class App extends Component {
