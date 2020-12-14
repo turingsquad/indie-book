@@ -12,6 +12,7 @@ import InputBase from '@material-ui/core/InputBase';
 import CreateRounded from '@material-ui/icons/CreateRounded';
 import {Link as RouterLink, Link} from 'react-router-dom';
 import Auth from "../auth/Auth";
+import Grid from "@material-ui/core/Grid";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,57 +76,74 @@ export default function HeaderAfterAuth(props) {
             <AppBar position="static" className={classes.appbar}>
                 <Container>
                     <Toolbar>
-                        <Link component={RouterLink} to={"/"} underline="none">
-                            <Typography
-                                    variant="h5"
-                                    color="inherit"
-                                    noWrap
-                                    className={classes.toolbarTitle}
-                                >
-                                    {title}
-                                </Typography>
-                            </Link>
-                            <Typography
-                                variant="body2"
-                                color="inherit"
-                                noWrap
-                                className={classes.link}
-                            >
-                                <Button color="inherit">
-                                    Article
-                                </Button>
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                color="inherit"
-                                noWrap
-                                className={classes.link}
-                            >
-                                <Button color="inherit">
-                                    Authors
-                                </Button>
-                            </Typography>
-                            <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
-                                <CreateRounded className={classes.icon}/>
-                            </IconButton>
-                            <div className={classes.search}>
-                                <div className={classes.searchIcon}>
-                                    <SearchIcon/>
-                                </div>
-                                <InputBase
-                                    placeholder="Search…"
-                                    classes={{
-                                        root: classes.inputRoot,
-                                        input: classes.inputInput,
-                                    }}
-                                />
-                            </div>
-                        <IconButton edge="end" color="inherit" onClick={() => {
-                            new Auth().signOff()
-                            window.location.reload()
-                        }}>
-                            Sign off
-                        </IconButton>
+                        <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
+                            <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
+                                <Grid item>
+                                    <Link component={RouterLink} to={"/"} underline="none" color="inherit">
+                                        <Typography
+                                                variant="h5"
+                                                noWrap
+                                                className={classes.toolbarTitle}
+                                            >
+                                                {title}
+                                        </Typography>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
+                                <Grid item>
+                                    <Typography
+                                        variant="body2"
+                                        color="inherit"
+                                        noWrap
+                                        className={classes.link}
+                                    >
+                                        <Button color="inherit">
+                                            Article
+                                        </Button>
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="body2"
+                                        color="inherit"
+                                        noWrap
+                                        className={classes.link}
+                                    >
+                                        <Button color="inherit">
+                                            Authors
+                                        </Button>
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
+                                        <CreateRounded className={classes.icon}/>
+                                    </IconButton>
+                                </Grid>
+                                <Grid item>
+                                    <div className={classes.search}>
+                                        <div className={classes.searchIcon}>
+                                            <SearchIcon/>
+                                        </div>
+                                        <InputBase
+                                            placeholder="Search…"
+                                            classes={{
+                                                root: classes.inputRoot,
+                                                input: classes.inputInput,
+                                            }}
+                                        />
+                                    </div>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton edge="end" color="inherit" onClick={() => {
+                                        new Auth().signOff()
+                                        window.location.reload()
+                                    }}>
+                                        Sign off
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                     </Container>
             </AppBar>

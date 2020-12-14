@@ -23,7 +23,7 @@ export default function TextEditor() {
     const [text, setText] = useState("");
 
     const handleChange = e => {
-        setText(e.target.value);
+        setText(e);
     };
 
     const handleForm1 = e => {
@@ -38,8 +38,8 @@ export default function TextEditor() {
         setValue3(e.target.value);
     }
 
-    const buttonClick = e => {
-        console.log(value3);
+    const buttonClick = () => {
+        console.log(text);
     }
     const classes = useStyles();
     const array = ['table', 'image', 'fullscreen', 'side-by-side']

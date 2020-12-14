@@ -129,7 +129,7 @@ export default function Book(props) {
                         Chapters
                     </Typography>
                     <ol>
-                        {findChapters(2).map(item => {
+                        {findChapters(book.id).map(item => {
                             return (
                                 <li>
                                     <div className="chapter">

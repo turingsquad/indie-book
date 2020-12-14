@@ -6,8 +6,9 @@ import routes from "../routes";
 import Home from "./Home";
 import EditorPage from "./EditorPage";
 import BookPage from "./BookPage";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
+import BookListPage from "./BookListPage";
 
 
 class App extends Component {
@@ -18,8 +19,9 @@ class App extends Component {
                     <Route exact path={routes.mainPage} component={Home}/>
                     <Route exact path={routes.bookPage} component={BookPage}/>
                     <Route exact path={routes.editorPage} component={EditorPage}/>
-                    <Route exact path={routes.signIn} component={SignIn}/>
-                    <Route exact path={routes.signUp} component={SignUp}/>
+                    <Route exact path={routes.signIn} component={SignInPage}/>
+                    <Route exact path={routes.signUp} component={SignUpPage}/>
+                    <Route exact path={routes.books} component={BookListPage}/>
                 </Switch>
             </Router>
         )
