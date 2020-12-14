@@ -10,7 +10,7 @@ import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import CreateRounded from '@material-ui/icons/CreateRounded';
-import {Link as RouterLink, Link} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import Auth from "../auth/Auth";
 import Grid from "@material-ui/core/Grid";
 
@@ -79,15 +79,14 @@ export default function HeaderAfterAuth(props) {
                         <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
                             <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
                                 <Grid item>
-                                    <Link component={RouterLink} to={"/"} underline="none" color="inherit">
+                                    <Button component={RouterLink} to={"/"} underline="none" color="inherit">
                                         <Typography
                                                 variant="h5"
                                                 noWrap
-                                                className={classes.toolbarTitle}
                                             >
                                                 {title}
                                         </Typography>
-                                    </Link>
+                                    </Button>
                                 </Grid>
                             </Grid>
                             <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
@@ -116,7 +115,7 @@ export default function HeaderAfterAuth(props) {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <IconButton edge="end" color="inherit" component={Link} to="/f/editor">
+                                    <IconButton edge="end" color="inherit" component={RouterLink} to="/f/editor">
                                         <CreateRounded className={classes.icon}/>
                                     </IconButton>
                                 </Grid>
@@ -135,12 +134,12 @@ export default function HeaderAfterAuth(props) {
                                     </div>
                                 </Grid>
                                 <Grid item>
-                                    <IconButton edge="end" color="inherit" onClick={() => {
+                                    <Button color="inherit" onClick={() => {
                                         new Auth().signOff()
                                         window.location.reload()
                                     }}>
-                                        Sign off
-                                    </IconButton>
+                                            Sign off
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>

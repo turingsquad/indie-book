@@ -13,6 +13,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import Link from "@material-ui/core/Link";
 import constants from "./constants/contants";
 import Auth from "./auth/Auth";
+import {Link as RouterLink} from "react-router-dom";
 
 
 function findBook(bookId) {
@@ -133,7 +134,7 @@ export default function Book(props) {
                             return (
                                 <li>
                                     <div className="chapter">
-                                    <Link href="#" variant="h6">
+                                    <Link href="#" variant="h6" component={RouterLink} to={"/f/chapter/" + item.id}>
                                         {item.name}
                                     </Link>
                                         <IconButton>

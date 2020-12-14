@@ -16,6 +16,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+function addChapter(bookId, chapterName, desc, text) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST",  "/api/v1/books/chapters/new", false)
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({
+        "bookId": bookId,
+        "name": chapterName,
+        "text": text,
+        "description": desc
+    }))
+}
+
 export default function TextEditor() {
     const [value, setValue] = useState("");
     const [value2, setValue2] = useState("");
@@ -39,6 +52,7 @@ export default function TextEditor() {
     }
 
     const buttonClick = () => {
+        addChapter(1, value3, value2, text);
         console.log(text);
     }
     const classes = useStyles();
@@ -56,7 +70,7 @@ export default function TextEditor() {
                         margin="normal"
                         required
                         fullWidth
-                        id="Bookname"
+                        id="BookName"
                         name="bookName"
                         label="Book Name"
                     />

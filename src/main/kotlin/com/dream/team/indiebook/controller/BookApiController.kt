@@ -44,6 +44,11 @@ class BookApiController {
         return chapterService.findByBook(bookId)
     }
 
+    @GetMapping("/api/v1/chapter/{chapterId}")
+    fun getChapterById(@PathVariable chapterId: Long): ChapterVo {
+        return chapterService.findById(chapterId)
+    }
+
     @PostMapping("/api/v1/books/chapters/new")
     fun createChapter(@RequestBody chapterVo: ChapterVo) {
         chapterService.createChapter(chapterVo)

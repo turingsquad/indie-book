@@ -4,5 +4,6 @@ export default {
     editorPage: '/f/editor',
     signIn: "/f/signIn",
     signUp: "/f/signUp",
-    books: "/f/books"
+    books: "/f/books",
+    chapterPage: '/f/chapter/:id'
 }

@@ -73,7 +73,7 @@ export default function HeaderBeforeAuth(props) {
                         <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
                             <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
                                 <Grid item>
-                                    <Link component={RouterLink} to={"/"} underline="none" color="inherit">
+                                    <Button component={RouterLink} to={"/"} underline="none" color="inherit">
                                         <Typography
                                             variant="h5"
                                             noWrap
@@ -81,7 +81,7 @@ export default function HeaderBeforeAuth(props) {
                                         >
                                             {title}
                                         </Typography>
-                                    </Link>
+                                    </Button>
                                 </Grid>
                             </Grid>
                             <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
@@ -101,14 +101,14 @@ export default function HeaderBeforeAuth(props) {
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signIn"} underline="none" color="inherit">
-                                        <Button className={classes.button} size="small" onClick={() => {
+                                        <Button color="inherit" className={classes.button} size="small" onClick={() => {
                                             useHistory().push("/")
                                         }}>Sign in</Button>
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signUp"} underline="none" color="inherit">
-                                        <Button className={classes.button} variant="outlined" size="small"
+                                        <Button color="inherit" className={classes.button} variant="outlined" size="small"
                                                 onClick={() => {
                                                     useHistory().push("/")
                                                 }}>Sign
