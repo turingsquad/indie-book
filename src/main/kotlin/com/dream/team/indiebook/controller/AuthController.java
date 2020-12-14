@@ -24,13 +24,13 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/signin")
+    @PostMapping(value = "/signin", consumes = "application/json")
     public ResponseEntity<JwtResponseVO> authenticateUser(@Valid @RequestBody final SignInRequestVO signinRequestVO) {
 
         return ResponseEntity.ok(userService.authenticateUser(signinRequestVO));
     }
 
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup", consumes = "application/json")
     public ResponseEntity<JwtResponseVO> registerUser(@Valid @RequestBody final SignUpRequestVO signUpRequestVO) {
 
         if (userService.existsByUsername(signUpRequestVO.getUsername())) {

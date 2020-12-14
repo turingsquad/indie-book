@@ -30,10 +30,10 @@ class LoggingApiController {
         val principal = auth.principal as UserDetails
         val username = principal.username
         val user = userService.findUserByName(username)
-        return userBookLogService.findLastByUserId(user.id)
+        return userBookLogService.findLastByUserId(user.id!!)
     }
 
-    @PostMapping("/api/v1/book/log/register")
+    @PostMapping(value = ["/api/v1/book/log/register"], consumes = ["application/json"])
     fun registerLogEvent(@RequestBody logVo: UserBookLogVo, auth: Authentication) {
         val principal = auth.principal as UserDetails
         val username = principal.username

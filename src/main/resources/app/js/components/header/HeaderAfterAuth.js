@@ -9,9 +9,9 @@ import Button from '@material-ui/core/Button';
 import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import CreateRounded from '@material-ui/icons/CreateRounded';
 import {Link as RouterLink, Link} from 'react-router-dom';
+import Auth from "../auth/Auth";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,18 +66,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function HeaderAfterAuth() {
+export default function HeaderAfterAuth(props) {
     const classes = useStyles();
     const {title} = props;
 
     return (
         <React.Fragment>
             <AppBar position="static" className={classes.appbar}>
-                <Link component={RouterLink} to={"/"} underline="none">
-                    <Container>
-                        <Toolbar>
-                            <Link component={RouterLink} to={"/"} underline="none">
-                                <Typography
+                <Container>
+                    <Toolbar>
+                        <Link component={RouterLink} to={"/"} underline="none">
+                            <Typography
                                     variant="h5"
                                     color="inherit"
                                     noWrap
@@ -121,13 +120,11 @@ export default function HeaderAfterAuth() {
                                     }}
                                 />
                             </div>
-                            <IconButton edge="end" color="inherit">
-                                Name
-                                <AccountCircle className={classes.icon}/>
-                            </IconButton>
-                        </Toolbar>
+                        <IconButton edge="end" color="inherit" onClick={new Auth().signOff}>
+                            Sign off
+                        </IconButton>
+                    </Toolbar>
                     </Container>
-                </Link>
             </AppBar>
         </React.Fragment>
     );

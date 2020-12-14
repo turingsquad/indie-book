@@ -7,6 +7,6 @@ import com.dream.team.indiebook.vo.UserBookLogVo
  * @author Alexander Kostyurenko
  */
 interface UserBookLogService {
-    fun findLastByUserId(userId: Long?): BookVo
+    fun findLastByUserId(userId: Long): BookVo
     fun registerBookLogEvent(userBookLogVo: UserBookLogVo)
 }

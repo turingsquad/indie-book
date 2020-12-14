@@ -64,7 +64,7 @@ export default function ContinueReading() {
             <CardHeader title="Continue Reading" className={classes.cardHeader}/>
             <CardContent>
                 <Grid container direction="row" justify="space-around" alignItems="center">
-                    <BookLink bookName={book.name} author={findAuthor(book.authorId).userName}/>
+                    <BookLink bookName={book.name} author={findAuthor(book.authorId).userName} id={book.id}/>
                 </Grid>
             </CardContent>
             <CardActions className={classes.cardAction}>

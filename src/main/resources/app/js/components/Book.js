@@ -48,6 +48,7 @@ function registerEvent(bookId) {
         let xhr = new XMLHttpRequest();
         xhr.open("POST", constants.backendHost + "/api/v1/book/log/register", false)
         xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader())
+        xhr.setRequestHeader("Content-Type", "application/json")
         xhr.send(JSON.stringify({
             bookId: bookId
         }))

@@ -10,6 +10,10 @@ export default class Auth {
         return AUTH_HEADER_NAME
     }
 
+    signOff() {
+        window.localStorage.removeItem(STORAGE_AUTH_HEADER_KEYWORD)
+    }
+
     getAuthHeader() {
         return window.localStorage.getItem(STORAGE_AUTH_HEADER_KEYWORD)
     }
@@ -21,6 +25,7 @@ export default class Auth {
     signUp(username, password) {
         let xhr = new XMLHttpRequest();
         xhr.open("POST", constants.backendHost + "/api/auth/signup", false)
+        xhr.setRequestHeader("Content-Type", "application/json")
         xhr.send(JSON.stringify({
             username: username,
             password: password
@@ -36,6 +41,7 @@ export default class Auth {
     signIn(username, password) {
         let xhr = new XMLHttpRequest();
         xhr.open("POST", constants.backendHost + "/api/auth/signin", false)
+        xhr.setRequestHeader("Content-Type", "application/json")
         xhr.send(JSON.stringify({
             username: username,
             password: password

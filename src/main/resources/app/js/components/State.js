@@ -1,29 +1,31 @@
 import Auth from "./auth/Auth";
 
+let credentialsHolder = {}
+
 export default class State {
     handleUsernameChange(e) {
-        this.username = e.target.value
+        credentialsHolder.username = e.target.value
     }
 
     handlePasswordChange(e) {
-        this.password = e.target.value
+        credentialsHolder.password = e.target.value
     }
 
     getPassword() {
-        return this.password
+        return credentialsHolder.password
     }
 
     getUsername() {
-        return this.username
+        return credentialsHolder.username
     }
 
     signInByState() {
         let auth = new Auth();
-        auth.signIn(this.username, this.password)
+        auth.signIn(credentialsHolder.username, credentialsHolder.password)
     }
 
     signUpByState() {
         let auth = new Auth();
-        auth.signIn(this.username, this.password)
+        auth.signUp(credentialsHolder.username, credentialsHolder.password)
     }
 }

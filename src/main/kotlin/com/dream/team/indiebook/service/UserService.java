@@ -80,7 +80,7 @@ public class UserService {
                 roles.add(roleRepository.findByName(role));
             }
         }
-        user.setRoles(roles);
+        //user.setRoles(roles);
         userRepository.save(user);
         return "User registered successfully!";
     }
