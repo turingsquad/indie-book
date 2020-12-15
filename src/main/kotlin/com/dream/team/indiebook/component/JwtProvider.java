@@ -20,7 +20,7 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-        LocalDateTime localDateTime = LocalDateTime.now().plusHours(1);
+        LocalDateTime localDateTime = LocalDateTime.now().plusHours(3);
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

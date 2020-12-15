@@ -5,11 +5,10 @@ import com.dream.team.indiebook.service.BookService
 import com.dream.team.indiebook.service.ChapterService
 import com.dream.team.indiebook.service.TagService
 import com.dream.team.indiebook.service.UserService
-import com.dream.team.indiebook.vo.BookVo
-import com.dream.team.indiebook.vo.ChapterVo
-import com.dream.team.indiebook.vo.TagVo
-import com.dream.team.indiebook.vo.UserVo
+import com.dream.team.indiebook.vo.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -82,5 +81,13 @@ class BookApiController {
     @GetMapping("/api/v1/users/{id}")
     fun findUser(@PathVariable id: Long): UserVo {
         return userService.findUserById(id)
+    }
+
+    @GetMapping("/api/v1/book/isAuthor/{userId}")
+    fun isBookAuthor(auth: Authentication, @PathVariable userId: Long) : Boolean {
+        val principal = auth.principal as UserDetails
+        val username = principal.username
+        val user = userService.findUserByName(username)
+        return userId == user.id
     }
 }

@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export default function BookLink(props) {
     const classes = useStyles();
     let {bookName, author, id} = props;
