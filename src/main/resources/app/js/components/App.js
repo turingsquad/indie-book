@@ -9,7 +9,7 @@ import BookPage from "./BookPage";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
 import BookListPage from "./BookListPage";
-import Text from "./Text";
+import ChapterPage from "./ChapterPage";
 
 class App extends Component {
     render() {
@@ -22,7 +22,7 @@ class App extends Component {
                     <Route exact path={routes.signIn} component={SignInPage}/>
                     <Route exact path={routes.signUp} component={SignUpPage}/>
                     <Route exact path={routes.books} component={BookListPage}/>
-                    <Route exact path={routes.chapterPage} component={Text}/>
+                    <Route exact path={routes.chapterPage} component={ChapterPage}/>
                 </Switch>
             </Router>
         )
