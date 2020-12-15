@@ -41,7 +41,7 @@ class BookServiceImpl : BookService {
         return entitiesToViews(listOf(entity))[0]
     }
 
-    override fun createBook(bookVo: BookVo) {
+    override fun createBook(bookVo: BookVo) : BookVo{
         val domainEntity = Book(
             null,
             bookVo.authorId,
@@ -51,7 +51,8 @@ class BookServiceImpl : BookService {
             tagService.viewsToEntities(bookVo.tags ?: emptyList()),
             bookVo.description
         )
-        bookRepository.save(domainEntity)
+        val entity = bookRepository.save(domainEntity)
+        return entitiesToViews(listOf(entity))[0]
     }
 
     override fun searchBooks(request: SearchRequest): List<BookVo> {

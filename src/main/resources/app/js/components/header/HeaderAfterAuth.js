@@ -97,8 +97,8 @@ export default function HeaderAfterAuth(props) {
                                         noWrap
                                         className={classes.link}
                                     >
-                                        <Button color="inherit">
-                                            Article
+                                        <Button color="inherit" component={RouterLink} to="/f/books">
+                                            Publications
                                         </Button>
                                     </Typography>
                                 </Grid>
@@ -115,7 +115,7 @@ export default function HeaderAfterAuth(props) {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <IconButton edge="end" color="inherit" component={RouterLink} to="/f/editor">
+                                    <IconButton edge="end" color="inherit" component={RouterLink} to="/f/createBook">
                                         <CreateRounded className={classes.icon}/>
                                     </IconButton>
                                 </Grid>

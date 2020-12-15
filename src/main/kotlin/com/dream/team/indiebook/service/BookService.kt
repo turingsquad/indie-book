@@ -9,7 +9,7 @@ import com.dream.team.indiebook.vo.BookVo
 interface BookService {
     fun getAllByUser(userId: Long): List<BookVo>
     fun findById(id: Long): BookVo
-    fun createBook(bookVo: BookVo)
+    fun createBook(bookVo: BookVo) : BookVo
     fun searchBooks(request: SearchRequest): List<BookVo>
     fun findRandomBooks(limit: Int): List<BookVo>
 }

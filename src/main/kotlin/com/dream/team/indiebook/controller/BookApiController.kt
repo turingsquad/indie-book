@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
+import java.awt.print.Book
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * @author Alexander Kostyurenko
@@ -33,9 +36,23 @@ class BookApiController {
         return bookService.getAllByUser(userId)
     }
 
-    @PostMapping("/api/v1/books/new")
-    fun createBook(@RequestBody bookVo: BookVo) {
-        bookService.createBook(bookVo)
+    @PostMapping(value = ["/api/v1/books/new"], consumes=["application/json"])
+    fun createBook(@RequestBody bookVo: BookVo, auth: Authentication) : BookVo {
+        val principal = auth.principal as UserDetails
+        val username = principal.username
+        val user = userService.findUserByName(username)
+        val transformedVo = BookVo(
+                null,
+                user.id,
+                bookVo.name,
+                null,
+                0,
+                0,
+                0,
+                bookVo.tags,
+                bookVo.description
+        )
+        return bookService.createBook(transformedVo)
     }
 
     @GetMapping("/api/v1/books/chapters/{bookId}")

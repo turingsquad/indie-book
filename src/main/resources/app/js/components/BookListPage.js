@@ -6,7 +6,7 @@ import BookList from "./BookList";
 export default function BookListPage() {
     return (
         <React.Fragment>
-            <HeaderAfterAuth />
+            <HeaderAfterAuth title={"Indie Book"} />
             <BookList/>
             <Footer />
         </React.Fragment>
