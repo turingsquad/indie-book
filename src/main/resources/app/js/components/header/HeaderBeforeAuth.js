@@ -108,13 +108,8 @@ export default function HeaderBeforeAuth(props) {
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signUp"} underline="none" color="inherit">
-                                        <Button color="inherit" className={classes.button} variant="outlined" size="small"
-                                                onClick={() => {
-                                                    state.signUpByState()
-                                                }}
-                                                component={RouterLink}
-                                                to={"/"}
-                                                href={"/"}>Sign
+                                        <Button color="inherit" className={classes.button} variant="outlined"
+                                                size="small">Sign
                                             up</Button>
                                     </Link>
                                 </Grid>
