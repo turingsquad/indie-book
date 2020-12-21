@@ -56,10 +56,10 @@ function createBook(name, desc, ...tags) {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({
             "name": name,
-            "description": desc
+            "description": desc,
+            "tagIds": tags[0]
         }))
-        let json = JSON.parse(xhr.responseText)
-        return json
+        return JSON.parse(xhr.responseText)
     }
     return undefined
 }
