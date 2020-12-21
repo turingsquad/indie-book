@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-import {Typography} from "@material-ui/core";
+import {CardActions, Typography} from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,6 +13,8 @@ import CommentIcon from '@material-ui/icons/Comment';
 import Link from "@material-ui/core/Link";
 import constants from "./constants/contants";
 import Auth from "./auth/Auth";
+import {Link as RouterLink} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 
 function findBook(bookId) {
@@ -20,7 +22,7 @@ function findBook(bookId) {
     xhr.open("GET", constants.backendHost + "/api/v1/book/" + bookId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
-    console.log(json)
+    //console.log(json)
     return json
 }
 
@@ -29,7 +31,7 @@ function findAuthor(userId) {
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
-    console.log(json)
+    //console.log(json)
     return json
 }
 
@@ -38,7 +40,7 @@ function findChapters(bookId) {
     xhr.open("GET", constants.backendHost + "/api/v1/books/chapters/" + bookId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
-    console.log(json)
+    //console.log(json)
     return json
 }
 
@@ -53,6 +55,20 @@ function registerEvent(bookId) {
             bookId: bookId
         }))
     }
+}
+
+function isAuthor(userId) {
+    let auth = new Auth()
+    if (auth.isAuthenticated()) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/v1/book/isAuthor/" + userId, false);  // synchronous request
+        xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader())
+        xhr.send(null);
+        let json = JSON.parse(xhr.responseText)
+        //console.log("Response" + json)
+        return json
+    }
+    return false
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
     },
     chapterCard: {
         marginTop: theme.spacing(1)
+    },
+    button: {
+        marginLeft: theme.spacing(2)
     }
 }))
 
@@ -80,6 +99,12 @@ export default function Book(props) {
     const classes = useStyles();
     let {id} = props;
     const book = findBook(id);
+    const toParams = {
+        pathname: "/f/editor",
+        paramId: id,
+        paramName: book.name
+    };
+
     registerEvent(id)
     return (
         <Container maxWidth="md" className={classes.container}>
@@ -129,11 +154,11 @@ export default function Book(props) {
                         Chapters
                     </Typography>
                     <ol>
-                        {findChapters(2).map(item => {
+                        {findChapters(book.id).map(item => {
                             return (
                                 <li>
                                     <div className="chapter">
-                                    <Link href="#" variant="h6">
+                                    <Link href="#" variant="h6" component={RouterLink} to={"/f/chapter/" + item.id}>
                                         {item.name}
                                     </Link>
                                         <IconButton>
@@ -148,6 +173,12 @@ export default function Book(props) {
                         })}
                     </ol>
                 </CardContent>
+                <CardActions>
+                    {isAuthor(book.authorId) && <Button className={classes.button} variant="outlined" component={RouterLink}
+                                                    to={ toParams }>
+                        Create new Chapter
+                    </Button>}
+                </CardActions>
             </Card>
         </Container>
     )

@@ -5,6 +5,8 @@ import {Container, Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import {Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     component: {
@@ -16,14 +18,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function TextEditor() {
+
+function addChapter(bookId, chapterName, desc, text) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST",  "/api/v1/books/chapters/new", false)
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({
+        "bookId": bookId,
+        "name": chapterName,
+        "text": text,
+        "description": desc
+    }))
+}
+
+export default function TextEditor(props) {
+    const classes = useStyles();
+    const array = ['table', 'image', 'fullscreen', 'side-by-side']
+    const {bookId, bookName} = props;
     const [value, setValue] = useState("");
     const [value2, setValue2] = useState("");
-    const [value3, setValue3] = useState("");
     const [text, setText] = useState("");
 
     const handleChange = e => {
-        setText(e.target.value);
+        setText(e);
     };
 
     const handleForm1 = e => {
@@ -34,18 +51,16 @@ export default function TextEditor() {
         setValue2(e.target.value);
     }
 
-    const handleForm3 = e => {
-        setValue3(e.target.value);
+    const buttonClick = () => {
+        addChapter(bookId, value, value2, text);
+        console.log(text);
     }
-
-    const buttonClick = e => {
-        console.log(value3);
-    }
-    const classes = useStyles();
-    const array = ['table', 'image', 'fullscreen', 'side-by-side']
 
     return (
         <Container className={classes.component}>
+            <Typography variant="h4" align="center">
+                {"Create new chapter for book: " + '"' + bookName + '"'}
+            </Typography>
             <Grid container lg={12} direction="row" justify="center" alignItems="center">
                 <Grid item lg={4}>
                 <form>
@@ -56,9 +71,9 @@ export default function TextEditor() {
                         margin="normal"
                         required
                         fullWidth
-                        id="Bookname"
-                        name="bookName"
-                        label="Book Name"
+                        id="ChapterName"
+                        name="chapterName"
+                        label="Chapter Name"
                     />
                     <TextField
                         value={value2}
@@ -71,19 +86,6 @@ export default function TextEditor() {
                         name="description"
                         label="Description"
                     />
-
-                    <TextField
-                        value={value3}
-                        onChange={handleForm3}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="ChapterName"
-                        name="chapterName"
-                        label="Chapter Name"
-                        />
-
                 </form>
                 </Grid>
             </Grid>
@@ -102,7 +104,9 @@ export default function TextEditor() {
                     />
                 </Grid>
             </Grid>
-            <Button variant="contained" size="large" className={classes.button} onClick={buttonClick}>Save</Button>
+            <Button variant="contained" size="large" className={classes.button} onClick={buttonClick} component={RouterLink} to={"/f/book/" + bookId}>
+                Save
+            </Button>
         </Container>
     )
 }

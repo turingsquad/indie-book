@@ -6,7 +6,6 @@ CREATE TABLE tags
 
 CREATE TABLE books_tags
 (
-    id      BIGSERIAL PRIMARY KEY,
     book_id bigint REFERENCES books (id),
     tag_id  bigint REFERENCES tags (id)
 );

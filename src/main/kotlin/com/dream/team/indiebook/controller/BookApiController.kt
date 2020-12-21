@@ -10,6 +10,8 @@ import com.dream.team.indiebook.vo.ChapterVo
 import com.dream.team.indiebook.vo.TagVo
 import com.dream.team.indiebook.vo.UserVo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -34,14 +36,34 @@ class BookApiController {
         return bookService.getAllByUser(userId)
     }
 
-    @PostMapping("/api/v1/books/new")
-    fun createBook(@RequestBody bookVo: BookVo) {
-        bookService.createBook(bookVo)
+    @PostMapping(value = ["/api/v1/books/new"], consumes=["application/json"])
+    fun createBook(@RequestBody bookVo: BookVo, auth: Authentication) : BookVo {
+        val principal = auth.principal as UserDetails
+        val username = principal.username
+        val user = userService.findUserByName(username)
+        val transformedVo = BookVo(
+            null,
+            user.id,
+            bookVo.name,
+            null,
+            0,
+            0,
+            0,
+            null,
+            bookVo.description,
+            bookVo.tagIds
+        )
+        return bookService.createBook(transformedVo)
     }
 
     @GetMapping("/api/v1/books/chapters/{bookId}")
     fun getChapterByBook(@PathVariable bookId: Long): List<ChapterVo> {
         return chapterService.findByBook(bookId)
+    }
+
+    @GetMapping("/api/v1/chapter/{chapterId}")
+    fun getChapterById(@PathVariable chapterId: Long): ChapterVo {
+        return chapterService.findById(chapterId)
     }
 
     @PostMapping("/api/v1/books/chapters/new")
@@ -77,5 +99,13 @@ class BookApiController {
     @GetMapping("/api/v1/users/{id}")
     fun findUser(@PathVariable id: Long): UserVo {
         return userService.findUserById(id)
+    }
+
+    @GetMapping("/api/v1/book/isAuthor/{userId}")
+    fun isBookAuthor(auth: Authentication, @PathVariable userId: Long) : Boolean {
+        val principal = auth.principal as UserDetails
+        val username = principal.username
+        val user = userService.findUserByName(username)
+        return userId == user.id
     }
 }

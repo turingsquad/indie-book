@@ -16,5 +16,6 @@ data class BookVo(
     val likeCount: Int?,
     val dislikeCount: Int?,
     val tags: List<TagVo>?,
-    val description: String?
+    val description: String?,
+    val tagIds: List<Long>? = null
 )

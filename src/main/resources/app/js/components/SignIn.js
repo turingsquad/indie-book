@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import State from "./State";
-import {useHistory} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 
 
 const styles = makeStyles((theme) => ({
@@ -32,7 +32,6 @@ const styles = makeStyles((theme) => ({
 export default function SignIn() {
     let state = new State();
     const classes = styles();
-    const history = useHistory();
     return (
         <Container>
             <form className={classes.form} noValidate>
@@ -65,8 +64,10 @@ export default function SignIn() {
                     className={classes.submit}
                     onClick={() => {
                         state.signInByState()
-                        history.goBack()
                     }}
+                    component={RouterLink}
+                    to={"/"}
+                    href={"/"}
                 >
                     Sign In
                 </Button>
