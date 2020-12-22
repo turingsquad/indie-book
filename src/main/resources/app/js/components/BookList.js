@@ -46,7 +46,7 @@ function findAuthor(userId) {
 
 export default function BookList() {
     const classes = useStyles();
-    const [pageCount, setPageCount] = useState(1);
+    const [pageCount, setPageCount] = useState(10);
     const [page, setPage] = useState(1);
     const [namePart, setNamePart] = useState("");
     const [searchResults, setSearchResults] = useState(getRandom());
