@@ -62,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export default function HeaderBeforeAuth(props) {
     const classes = useStyles();
     const {title} = props;
+
     return (
         <React.Fragment>
             <AppBar position="static" className={classes.appbar}>

@@ -5,14 +5,14 @@ import com.dream.team.indiebook.service.BookService
 import com.dream.team.indiebook.service.ChapterService
 import com.dream.team.indiebook.service.TagService
 import com.dream.team.indiebook.service.UserService
-import com.dream.team.indiebook.vo.*
+import com.dream.team.indiebook.vo.BookVo
+import com.dream.team.indiebook.vo.ChapterVo
+import com.dream.team.indiebook.vo.TagVo
+import com.dream.team.indiebook.vo.UserVo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
-import java.awt.print.Book
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 /**
  * @author Alexander Kostyurenko
@@ -42,15 +42,16 @@ class BookApiController {
         val username = principal.username
         val user = userService.findUserByName(username)
         val transformedVo = BookVo(
-                null,
-                user.id,
-                bookVo.name,
-                null,
-                0,
-                0,
-                0,
-                bookVo.tags,
-                bookVo.description
+            null,
+            user.id,
+            bookVo.name,
+            null,
+            0,
+            0,
+            0,
+            null,
+            bookVo.description,
+            bookVo.tagIds
         )
         return bookService.createBook(transformedVo)
     }

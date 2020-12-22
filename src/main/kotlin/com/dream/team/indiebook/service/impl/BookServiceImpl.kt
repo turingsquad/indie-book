@@ -48,7 +48,7 @@ class BookServiceImpl : BookService {
             bookVo.name,
             LocalDateTime.now(),
 
-            tagService.viewsToEntities(bookVo.tags ?: emptyList()),
+            tagService.viewsToEntities(tagService.findByIds(bookVo.tagIds ?: emptyList())),
             bookVo.description
         )
         val entity = bookRepository.save(domainEntity)

@@ -1,11 +1,9 @@
-import React, {useEffect , useState} from "react";
-import SimpleMDEReact from "react-simplemde-editor";
+import React, {useEffect, useState} from "react";
 import "easymde/dist/easymde.min.css";
-import {Container, Grid, MenuItem} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
 import constants from "./constants/contants";
 import {Link as RouterLink} from "react-router-dom";
 import Dropdown from 'react-mui-multiselect-dropdown'
@@ -58,9 +56,12 @@ function createBook(name, desc, ...tags) {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({
             "name": name,
-            "description": desc
+            "description": desc,
+            "tagIds": tags[0]
         }))
+        return JSON.parse(xhr.responseText)
     }
+    return undefined
 }
 
 export default function Editor() {
@@ -101,12 +102,14 @@ export default function Editor() {
     }, [])
 
     const buttonClick = () => {
-        let book = createBook(bookName, description, selectedTags);
+        let book = createBook(bookName, description, selectedTags)
+        console.log(book)
+        console.log(book.id)
         setBookId(book.id)
     }
 
     const classes = useStyles();
-
+    //TODO Route to author's books
     return (
         <Container className={classes.component}>
             <Grid container lg={12} direction="row" justify="center" alignItems="center">
@@ -166,7 +169,11 @@ export default function Editor() {
                     />
                 </Grid>
             </Grid>
-            <Button variant="contained" size="large" className={classes.button} onClick={buttonClick} component={RouterLink} to={"/f/book/" + bookId}>Save</Button>
+            <Button variant="contained" size="large" className={classes.button}
+                    onClick={buttonClick} component={RouterLink}
+                    to={"/"}>
+                Save
+            </Button>
         </Container>
     )
 }
