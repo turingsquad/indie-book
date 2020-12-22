@@ -8,5 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class SearchRequest(
     val tagIds: List<Long>?,
-    val namePart: String?
+    val namePart: String?,
+    val page: Long?
 )

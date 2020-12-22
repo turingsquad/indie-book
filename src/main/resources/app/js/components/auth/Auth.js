@@ -1,10 +1,20 @@
 import constants from "../constants/contants";
 
 const STORAGE_AUTH_HEADER_KEYWORD = "AuthHeader"
+const CURRENT_USER_ID = "UserId"
+const CURRENT_USER_NAME = "UserName"
 
 const AUTH_HEADER_NAME = "Authorization"
 
 export default class Auth {
+
+    getCurrentUserId() {
+        return window.localStorage.getItem(CURRENT_USER_ID)
+    }
+
+    getCurrentUserName() {
+        return window.localStorage.getItem(CURRENT_USER_NAME)
+    }
 
     authHeaderName() {
         return AUTH_HEADER_NAME
@@ -12,6 +22,8 @@ export default class Auth {
 
     signOff() {
         window.localStorage.removeItem(STORAGE_AUTH_HEADER_KEYWORD)
+        window.localStorage.removeItem(CURRENT_USER_ID)
+        window.localStorage.removeItem(CURRENT_USER_NAME)
     }
 
     getAuthHeader() {
@@ -34,6 +46,8 @@ export default class Auth {
             let json = JSON.parse(xhr.responseText)
             let authHeader = json["type"] + " " + json["token"]
             window.localStorage.setItem(STORAGE_AUTH_HEADER_KEYWORD, authHeader)
+            window.localStorage.setItem(CURRENT_USER_ID, json.id)
+            window.localStorage.setItem(CURRENT_USER_NAME, json.username)
         }
         return false
     }
@@ -50,6 +64,8 @@ export default class Auth {
             let json = JSON.parse(xhr.responseText)
             let authHeader = json["type"] + " " + json["token"]
             window.localStorage.setItem(STORAGE_AUTH_HEADER_KEYWORD, authHeader)
+            window.localStorage.setItem(CURRENT_USER_ID, json.id)
+            window.localStorage.setItem(CURRENT_USER_NAME, json.username)
         }
         return false
     }
