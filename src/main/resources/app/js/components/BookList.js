@@ -53,11 +53,11 @@ export default function BookList() {
                 <CardHeader title="Publications" className={classes.cardHeader}/>
                 <CardContent>
                     <Grid container direction="column" lg={12} justify="flex-start" alignItems="center">
-                        {false && <SearchField className={classes.search} />}
+                        <SearchField className={classes.search} />
                         <BookItem title={books[0].name} author={findAuthor(books[0].authorId).userName} className={classes.item}/>
                         <BookItem title={books[1].name} author={findAuthor(books[1].authorId).userName} className={classes.item}/>
                         <BookItem title={books[2].name} author={findAuthor(books[2].authorId).userName} className={classes.item}/>
-                        {false && <Pagination count={10} className={classes.item}/>}
+                        <Pagination count={10} className={classes.item}/>
                     </Grid>
 
                 </CardContent>
