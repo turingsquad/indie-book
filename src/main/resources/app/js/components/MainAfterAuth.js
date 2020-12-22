@@ -9,6 +9,10 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     component: {
         marginTop: theme.spacing(3)
+    },
+    element: {
+        marginBottom: theme.spacing(1)
+
     }
 }));
 
@@ -18,10 +22,10 @@ export default function MainAfterAuth() {
     return (
         <Container className={classes.component}>
             <Grid container lg={12} direction="row" justify="space-between" alignItems="flex-start">
-                <Grid item lg={7}>
+                <Grid item lg={7} className={classes.element}>
                     <Recommendation/>
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item lg={4} className={classes.element}>
                     <ContinueReading/>
                 </Grid>
             </Grid>

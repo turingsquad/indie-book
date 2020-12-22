@@ -11,6 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
+import State from "../State";
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -61,17 +62,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 export default function HeaderBeforeAuth(props) {
     const classes = useStyles();
     const {title} = props;
-
     return (
         <React.Fragment>
             <AppBar position="static" className={classes.appbar}>
                 <Container>
                     <Toolbar>
-                        <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
-                            <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
+                        <Grid container direction="row" lg={12} sm={12} justify="space-around" alignItems="center">
+                            <Grid container direction="row" lg={6} md={5} sm={3} xs={3} justify="flex-start" alignItems="center">
                                 <Grid item>
                                     <Button component={RouterLink} to={"/"} underline="none" color="inherit">
                                         <Typography
@@ -84,8 +85,8 @@ export default function HeaderBeforeAuth(props) {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
-                                <Grid item>
+                            <Grid container direction="row" lg={6} md={5} sm={9} xs={9} justify="flex-end" alignItems="center">
+                                { false && <Grid item>
                                     <div className={classes.search}>
                                         <div className={classes.searchIcon}>
                                             <SearchIcon/>
@@ -98,24 +99,18 @@ export default function HeaderBeforeAuth(props) {
                                             }}
                                         />
                                     </div>
-                                </Grid>
+                                </Grid>}
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signIn"} underline="none" color="inherit">
-                                        <Button color="inherit" className={classes.button} size="small" onClick={() => {
-                                            useHistory().push("/")
-                                        }}>Sign in</Button>
+                                        <Button color="inherit" className={classes.button} size="small" >Sign in</Button>
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signUp"} underline="none" color="inherit">
                                         <Button color="inherit" className={classes.button} variant="outlined" size="small"
-                                                onClick={() => {
-                                                    state.signUpByState()
-                                                }}
-                                                component={RouterLink}
-                                                to={"/"}
-                                                href={"/"}>Sign
-                                            up</Button>
+                                        >
+                                            Sign up
+                                        </Button>
                                     </Link>
                                 </Grid>
                             </Grid>

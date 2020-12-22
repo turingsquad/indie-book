@@ -77,7 +77,7 @@ export default function HeaderAfterAuth(props) {
                 <Container>
                     <Toolbar>
                         <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
-                            <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
+                            <Grid container direction="row" lg={6} md={5} sm={3} xs={12} justify="flex-start" alignItems="center">
                                 <Grid item>
                                     <Button component={RouterLink} to={"/"} underline="none" color="inherit">
                                         <Typography
@@ -89,7 +89,7 @@ export default function HeaderAfterAuth(props) {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
+                            <Grid container direction="row" lg={6} md={5} sm={9} xs={12} justify="flex-end" alignItems="center">
                                 <Grid item>
                                     <Typography
                                         variant="body2"
@@ -119,7 +119,7 @@ export default function HeaderAfterAuth(props) {
                                         <CreateRounded className={classes.icon}/>
                                     </IconButton>
                                 </Grid>
-                                <Grid item>
+                                { false && <Grid item>
                                     <div className={classes.search}>
                                         <div className={classes.searchIcon}>
                                             <SearchIcon/>
@@ -132,7 +132,7 @@ export default function HeaderAfterAuth(props) {
                                             }}
                                         />
                                     </div>
-                                </Grid>
+                                </Grid>}
                                 <Grid item>
                                     <Button color="inherit" onClick={() => {
                                         new Auth().signOff()
