@@ -60,7 +60,7 @@ class BookServiceImpl : BookService {
     override fun pageCount(request: SearchRequest): Int {
         val namePart = request.namePart ?: ""
         val pageable = PageRequest.of(1, 3, Sort.by("id").descending())
-        return if (request.tagIds.isNullOrEmpty()) {
+        var res = if (request.tagIds.isNullOrEmpty()) {
             bookRepository.findByNameContaining(namePart, pageable).totalPages //if no tags passed, do not look at tags
         } else {
             tagService.viewsToEntities(
@@ -69,13 +69,22 @@ class BookServiceImpl : BookService {
                 bookRepository.findAllByTagsContainsAndNameContaining(it, namePart, pageable).totalPages
             }.max() ?: 1
         }
+        if (request.namePart.isNullOrEmpty() && !request.tagIds.isNullOrEmpty()) {
+            res = tagService.viewsToEntities(
+                    tagService.findByIds(request.tagIds)
+            ).map {
+                bookRepository.findAllByTagsContains(it, pageable).totalPages
+            }.sum()
+        }
+        //println(res)
+        return res
     }
 
     override fun searchBooks(request: SearchRequest): List<BookVo> {
         val namePart = request.namePart ?: ""
         val page = request.page ?: 1
         val pageable = PageRequest.of(page.toInt() - 1, 3, Sort.by("id").descending())
-        val found: List<Book> = if (request.tagIds.isNullOrEmpty()) {
+        var found: List<Book> = if (request.tagIds.isNullOrEmpty()) {
             bookRepository.findByNameContaining(namePart, pageable).content //if no tags passed, do not look at tags
         } else {
             tagService.viewsToEntities(
@@ -84,6 +93,15 @@ class BookServiceImpl : BookService {
                 bookRepository.findAllByTagsContainsAndNameContaining(it, namePart, pageable).content
             }.flatten()
         }.distinctBy { it.id }
+
+        if (request.namePart.isNullOrEmpty() && !request.tagIds.isNullOrEmpty()) {
+            found = tagService.viewsToEntities(
+                    tagService.findByIds(request.tagIds)
+            ).map {
+                bookRepository.findAllByTagsContains(it, pageable).content
+            }.flatten().distinctBy { it.id }
+        }
+        //println(found)
         return entitiesToViews(found)
     }
 

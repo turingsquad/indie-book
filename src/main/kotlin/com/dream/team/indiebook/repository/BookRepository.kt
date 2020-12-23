@@ -13,6 +13,7 @@ interface BookRepository : PagingAndSortingRepository<Book, Long?> {
     fun findByAuthorId(authorId: Long): List<Book>
     fun findAllByTagsContainsAndNameContaining(tags: Tag, name: String, pageable: Pageable): Page<Book>
     fun findByNameContaining(name: String, pageable: Pageable): Page<Book>
+    fun findAllByTagsContains(tags: Tag, pageable: Pageable) : Page<Book>
 
     @Query(nativeQuery = true, value = "SELECT *  FROM books ORDER BY random() LIMIT ?1")
     fun findRandom(limit: Int): List<Book>

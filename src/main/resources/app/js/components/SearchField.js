@@ -35,7 +35,7 @@ export default function SearchField(props) {
                 placeholder="Search"
                 onChange={props.onChange}
             />
-            <IconButton className={classes.iconButton} aria-label="search">
+            <IconButton className={classes.iconButton} aria-label="search" onClick={props.onClick}>
                 <SearchIcon />
             </IconButton>
         </Paper>

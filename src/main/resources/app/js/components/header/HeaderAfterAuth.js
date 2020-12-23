@@ -70,6 +70,8 @@ const useStyles = makeStyles((theme) => ({
 export default function HeaderAfterAuth(props) {
     const classes = useStyles();
     const {title} = props;
+    let auth = new Auth();
+    let authorId = auth.getCurrentUserId();
 
     return (
         <React.Fragment>
@@ -109,8 +111,8 @@ export default function HeaderAfterAuth(props) {
                                         noWrap
                                         className={classes.link}
                                     >
-                                        <Button color="inherit">
-                                            Authors
+                                        <Button color="inherit" component={RouterLink} to={"/f/author/" + authorId}>
+                                            My Books
                                         </Button>
                                     </Typography>
                                 </Grid>

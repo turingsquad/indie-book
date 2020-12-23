@@ -7,7 +7,7 @@ import SearchField from "./SearchField";
 import CardHeader from "@material-ui/core/CardHeader";
 import Pagination from '@material-ui/lab/Pagination';
 import constants from "./constants/contants";
-import Button from "@material-ui/core/Button";
+import Dropdown from "react-mui-multiselect-dropdown";
 
 const useStyles = makeStyles((theme) => ({
     list : {
@@ -24,7 +24,22 @@ const useStyles = makeStyles((theme) => ({
         background: '#ffddb0',
         height: 40
     },
+    error: {
+        color: theme.palette.error.dark,
+        fontSize: '1em'
+    },
+    checkBox: {
+        color: "red"
+    }
 }))
+
+function getTags() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", constants.backendHost + "/api/v1/tags", false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    return json
+}
 
 function getRandom() {
     let xhr = new XMLHttpRequest();
@@ -40,39 +55,56 @@ function findAuthor(userId) {
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
     let json = JSON.parse(xhr.responseText)
-    console.log(json)
+    //console.log(json)
     return json
 }
 
 export default function BookList() {
     const classes = useStyles();
-    const [pageCount, setPageCount] = useState(10);
+    const [pageCount, setPageCount] = useState(1);
     const [page, setPage] = useState(1);
     const [namePart, setNamePart] = useState("");
     const [searchResults, setSearchResults] = useState(getRandom());
+    const [tagList, setTagList] = useState(getTags());
+    const [selectedTags, setSelectedTags] = useState([]);
 
-    const updatePageCount = () => {
+    const updatePageCount = (...tags) => {
+        let tagIds = getTagIds(tags);
         let xhr = new XMLHttpRequest();
         xhr.open("POST", constants.backendHost + "/api/v1/pages", false);  // synchronous request
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify({
             "namePart": namePart,
-            "page": page
+            "page": page,
+            "tagIds": tagIds
         }));
         const count = xhr.responseText
-        setPageCount(count)
+        setPageCount(parseInt(count))
     }
 
-    const getBooks = () => {
+    const getTagIds = (tags) => {
+        let tagIds = [];
+        for (let i = 0; i < tags[0].length; i++) {
+            tagIds.push(tags[0][i].id)
+        }
+        return tagIds;
+    }
+
+    const getBooks = (pageNumber, ...tags) => {
+        let tagIds = getTagIds(tags);
         let xhr = new XMLHttpRequest();
         xhr.open("POST", constants.backendHost + "/api/v1/search", false);  // synchronous request
         xhr.setRequestHeader("Content-Type", "application/json");
+        if (pageNumber === 0) {
+            pageNumber = 1;
+            setPage(1);
+        }
         xhr.send(JSON.stringify({
             "namePart": namePart,
-            "page": page
+            "page": pageNumber,
+            "tagIds": tagIds
         }));
         let json = JSON.parse(xhr.responseText)
-        console.log(json)
         return json
     }
 
@@ -86,8 +118,8 @@ export default function BookList() {
             if (searchResults.length >= (number + 1)) {
                 return (
                     <div>
-                        <BookItem title={searchResults[number].name}
-                                  author={findAuthor(searchResults[number].authorId).userName}
+                        <BookItem book={searchResults[number]}
+                                  author={findAuthor(searchResults[number].authorId)}
                                   className={classes.item}/>
                     </div>
                 )
@@ -106,16 +138,21 @@ export default function BookList() {
         )
     }
 
+
     const performSearch = () => {
-        updatePageCount()
-        const books = getBooks()
+        updatePageCount(selectedTags);
+        const books = getBooks(0, selectedTags);
         setSearchResults(books)
     }
 
-    const pageChanged = (event, page) => {
-        setPage(page)
-        performSearch()
+    const pageChanged = (event, newPage) => {
+        if (page !== newPage) {
+            setPage(newPage)
+            const books = getBooks(newPage, selectedTags);
+            setSearchResults(books);
+        }
     }
+
 
     //performSearch()
 
@@ -125,13 +162,25 @@ export default function BookList() {
                 <CardHeader title="Publications" className={classes.cardHeader}/>
                 <CardContent>
                     <Grid container direction="column" lg={12} justify="flex-start" alignItems="center">
-                        <SearchField className={classes.search} onChange={handleSearchChange}/>
-                        <Button variant="contained" size="large" className={classes.button}
-                                onClick={performSearch}>
-                            Search
-                        </Button>
+                        <SearchField className={classes.search} onChange={handleSearchChange} onClick={performSearch}/>
+                        <Dropdown
+                            title={"Tags"}
+                            fullWidth
+                            multiple
+                            data={tagList}
+                            itemLabel='name'
+                            onItemClick={(val) => {
+                                setSelectedTags(val);
+                                console.log(val);
+                            }}
+                            selectedValues={selectedTags}
+                            customStyles={{
+                                error: classes.error,
+                                checkBox: classes.checkBox
+                            }}
+                        />
                         {renderResults()}
-                        <Pagination count={pageCount} className={classes.item} onChange={pageChanged}/>
+                        <Pagination count={pageCount} page={page} className={classes.item} onChange={pageChanged}/>
                     </Grid>
 
                 </CardContent>
