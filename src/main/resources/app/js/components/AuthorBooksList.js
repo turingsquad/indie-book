@@ -15,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
     list : {
         marginTop: theme.spacing(1)
-    }
+    },
+    pagination : {
+        marginTop: theme.spacing(2)
+    },
+    cardHeader : {
+        height: 40
+    },
 }));
 
 function getBooksByAuthorId(userId) {
@@ -25,7 +31,13 @@ function getBooksByAuthorId(userId) {
     let json = JSON.parse(xhr.responseText)
     return json
 }
-
+function getAuthorByAuthorId(userId) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
+    xhr.send(null);
+    let json = JSON.parse(xhr.responseText)
+    return json
+}
 
 export default function AuthorBooksList(props) {
     const {userId} = props;
@@ -33,6 +45,7 @@ export default function AuthorBooksList(props) {
     const [page, setPage] = React.useState(1);
     const itemsPerPage = 5;
     let books = getBooksByAuthorId(userId);
+    let author = getAuthorByAuthorId(userId);
     const [amountOfPages] = React.useState(
         Math.ceil(books.length / itemsPerPage)
     );
@@ -44,7 +57,7 @@ export default function AuthorBooksList(props) {
     return (
         <Container maxWidth="md" className={classes.list}>
             <Card>
-                <CardHeader title={"AuthorName"}/>
+                <CardHeader title={author.userName} className={classes.header}/>
                 <CardContent>
                     {books
                         .slice((page - 1) * itemsPerPage, page * itemsPerPage)
@@ -60,6 +73,7 @@ export default function AuthorBooksList(props) {
                         page={page}
                         onChange={handleChange}
                         defaultPage={1}
+                        className={classes.pagination}
                     />
                 </CardContent>
             </Card>

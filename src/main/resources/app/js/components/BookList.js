@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2)
     },
     search : {
-        marginLeft : theme.spacing(2),
         marginTop : theme.spacing(2)
     },
     cardHeader : {
@@ -161,9 +160,13 @@ export default function BookList() {
             <Card>
                 <CardHeader title="Publications" className={classes.cardHeader}/>
                 <CardContent>
-                    <Grid container direction="column" lg={12} justify="flex-start" alignItems="center">
+                    <Grid container direction="row" lg={12}>
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
                         <SearchField className={classes.search} onChange={handleSearchChange} onClick={performSearch}/>
+                        </Grid>
+                        <Grid item lg={6} md={6} sm={12} xs={12}>
                         <Dropdown
+                            className={classes.search}
                             title={"Tags"}
                             fullWidth
                             multiple
@@ -179,9 +182,10 @@ export default function BookList() {
                                 checkBox: classes.checkBox
                             }}
                         />
+                        </Grid>
+                    </Grid>
                         {renderResults()}
                         <Pagination count={pageCount} page={page} className={classes.item} onChange={pageChanged}/>
-                    </Grid>
 
                 </CardContent>
             </Card>
