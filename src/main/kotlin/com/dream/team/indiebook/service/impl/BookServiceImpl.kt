@@ -10,7 +10,6 @@ import com.dream.team.indiebook.service.TagService
 import com.dream.team.indiebook.vo.BookVo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -59,49 +58,23 @@ class BookServiceImpl : BookService {
 
     override fun pageCount(request: SearchRequest): Int {
         val namePart = request.namePart ?: ""
-        val pageable = PageRequest.of(1, 3, Sort.by("id").descending())
-        var res = if (request.tagIds.isNullOrEmpty()) {
+        val pageable = PageRequest.of(1, 3)
+        return if (request.tagIds.isNullOrEmpty()) {
             bookRepository.findByNameContaining(namePart, pageable).totalPages //if no tags passed, do not look at tags
         } else {
-            tagService.viewsToEntities(
-                tagService.findByIds(request.tagIds)
-            ).map {
-                bookRepository.findAllByTagsContainsAndNameContaining(it, namePart, pageable).totalPages
-            }.max() ?: 1
+            bookRepository.findByTagsAndName(namePart, request.tagIds, pageable).totalPages
         }
-        if (request.namePart.isNullOrEmpty() && !request.tagIds.isNullOrEmpty()) {
-            res = tagService.viewsToEntities(
-                    tagService.findByIds(request.tagIds)
-            ).map {
-                bookRepository.findAllByTagsContains(it, pageable).totalPages
-            }.sum()
-        }
-        //println(res)
-        return res
     }
 
     override fun searchBooks(request: SearchRequest): List<BookVo> {
         val namePart = request.namePart ?: ""
         val page = request.page ?: 1
-        val pageable = PageRequest.of(page.toInt() - 1, 3, Sort.by("id").descending())
-        var found: List<Book> = if (request.tagIds.isNullOrEmpty()) {
+        val pageable = PageRequest.of(page.toInt() - 1, 3)
+        val found: List<Book> = if (request.tagIds.isNullOrEmpty()) {
             bookRepository.findByNameContaining(namePart, pageable).content //if no tags passed, do not look at tags
         } else {
-            tagService.viewsToEntities(
-                tagService.findByIds(request.tagIds)
-            ).map {
-                bookRepository.findAllByTagsContainsAndNameContaining(it, namePart, pageable).content
-            }.flatten()
-        }.distinctBy { it.id }
-
-        if (request.namePart.isNullOrEmpty() && !request.tagIds.isNullOrEmpty()) {
-            found = tagService.viewsToEntities(
-                    tagService.findByIds(request.tagIds)
-            ).map {
-                bookRepository.findAllByTagsContains(it, pageable).content
-            }.flatten().distinctBy { it.id }
+            bookRepository.findByTagsAndName(namePart, request.tagIds, pageable).content
         }
-        //println(found)
         return entitiesToViews(found)
     }
 
