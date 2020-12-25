@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface BookRepository : PagingAndSortingRepository<Book, Long?> {
-    fun findByAuthorId(authorId: Long): List<Book>
-    fun findAllByTagsInAndNameContainingIgnoreCase(tags: List<Tag>, name: String, pageable: Pageable): Page<Book>
+    fun findByAuthorIdOrderByIdDesc(authorId: Long): List<Book>
     fun findByNameContaining(name: String, pageable: Pageable): Page<Book>
     fun findAllByTagsContains(tags: Tag, pageable: Pageable): Page<Book>
 

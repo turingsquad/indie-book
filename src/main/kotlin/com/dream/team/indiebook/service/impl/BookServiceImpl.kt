@@ -33,7 +33,7 @@ class BookServiceImpl : BookService {
     lateinit var tagService: TagService
 
     override fun getAllByUser(userId: Long): List<BookVo> {
-        val domainEntities = bookRepository.findByAuthorId(userId)
+        val domainEntities = bookRepository.findByAuthorIdOrderByIdDesc(userId)
         return entitiesToViews(domainEntities)
     }
 

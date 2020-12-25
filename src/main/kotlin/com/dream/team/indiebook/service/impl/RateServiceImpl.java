@@ -18,45 +18,53 @@ public class RateServiceImpl implements RateService {
     private RateRepository rateRepository;
 
     @Autowired
-    public void setRateRepository(RateRepository rateRepository) {
+    public void setRateRepository(final RateRepository rateRepository) {
         this.rateRepository = rateRepository;
     }
 
     @Override
-    public List<LikeVo> getAllLikesByBook(Long bookId) {
-        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.LIKE);
+    public List<LikeVo> getAllLikesByBook(final Long bookId) {
+        final List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.LIKE);
         return byBookIdAndRateType.stream()
-                .map(it -> new LikeVo(it.getId(), it.getUserId()))
+                .map(it -> new LikeVo(it.getId(), it.getUserId(), it.getUserId()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<DislikeVo> getAllDislikesByBook(Long bookId) {
-        List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.DISLIKE);
+    public List<DislikeVo> getAllDislikesByBook(final Long bookId) {
+        final List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.DISLIKE);
         return byBookIdAndRateType.stream()
-                .map(it -> new DislikeVo(it.getId(), it.getUserId()))
+                .map(it -> new DislikeVo(it.getId(), it.getUserId(), it.getUserId()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void createLike(LikeVo likeVo) {
-        Rate rate = new Rate(likeVo.getUserId(), likeVo.getBookId(), RateType.LIKE);
-        rateRepository.save(rate);
+    public void createLike(final LikeVo likeVo) {
+        final Rate rate = new Rate(likeVo.getUserId(), likeVo.getBookId(), RateType.LIKE);
+        createRate(rate);
     }
 
     @Override
-    public void createDislike(DislikeVo dislikeVo) {
-        Rate rate = new Rate(dislikeVo.getUserID(), dislikeVo.getBookID(), RateType.DISLIKE);
-        rateRepository.save(rate);
+    public void createDislike(final DislikeVo dislikeVo) {
+        final Rate rate = new Rate(dislikeVo.getUserId(), dislikeVo.getBookId(), RateType.DISLIKE);
+        createRate(rate);
     }
 
     @Override
-    public Integer countLikesByBook(Long bookId) {
+    public Integer countLikesByBook(final Long bookId) {
         return rateRepository.countByBookIdAndRateType(bookId, RateType.LIKE);
     }
 
     @Override
-    public Integer countDislikesByBook(Long bookId) {
+    public Integer countDislikesByBook(final Long bookId) {
         return rateRepository.countByBookIdAndRateType(bookId, RateType.DISLIKE);
+    }
+
+    private void createRate(final Rate rate) {
+        final var previousRate = rateRepository.findByUserIdAndBookId(rate.getUserId(), rate.getBookId());
+        if (previousRate.isPresent()) {
+            rateRepository.delete(previousRate.get());
+        }
+        rateRepository.save(rate);
     }
 }
