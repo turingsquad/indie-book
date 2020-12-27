@@ -9,9 +9,8 @@ import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
-import {Link as RouterLink, useHistory} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
-import State from "../State";
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -100,6 +99,18 @@ export default function HeaderBeforeAuth(props) {
                                         />
                                     </div>
                                 </Grid>}
+                                <Grid item>
+                                    <Typography
+                                        variant="body2"
+                                        color="inherit"
+                                        noWrap
+                                        className={classes.link}
+                                    >
+                                        <Button color="inherit" component={RouterLink} to="/f/books">
+                                            Publications
+                                        </Button>
+                                    </Typography>
+                                </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signIn"} underline="none" color="inherit">
                                         <Button color="inherit" className={classes.button} size="small" >Sign in</Button>

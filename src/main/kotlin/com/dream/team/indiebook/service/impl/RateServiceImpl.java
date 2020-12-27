@@ -71,7 +71,18 @@ public class RateServiceImpl implements RateService {
 
     private void createRate(final Rate rate) {
         final var previousRate = rateRepository.findByUserIdAndBookId(rate.getUserId(), rate.getBookId());
-        previousRate.ifPresent(value -> rateRepository.delete(value));
+        if (previousRate.isPresent()) {
+            if (previousRate.get().getRateType() == rate.getRateType()) {
+                rateRepository.delete(previousRate.get());
+                return;
+            }
+            else {
+                rateRepository.delete(previousRate.get());
+                rateRepository.save(rate);
+                return;
+            }
+        }
         rateRepository.save(rate);
     }
+
 }

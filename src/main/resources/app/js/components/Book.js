@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,6 +15,8 @@ import constants from "./constants/contants";
 import Auth from "./auth/Auth";
 import {Link as RouterLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import ThumbDownAltOutlinedIcon from '@material-ui/icons/ThumbDownAltOutlined';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 
 
 function findBook(bookId) {
@@ -92,8 +94,47 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginLeft: theme.spacing(2)
+    },
+    activeGrading : {
+        background: "#3891D9"
     }
 }))
+
+function createLike(id) {
+    let auth = new Auth()
+    let xhr = new XMLHttpRequest();
+    xhr.open("PUT", constants.backendHost + "/api/v1/like/" + id, false);  // synchronous request
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+    xhr.send(JSON.stringify({
+        bookId: id
+    }));
+}
+
+
+function createDislike(id) {
+    let auth = new Auth()
+    let xhr = new XMLHttpRequest();
+    xhr.open("PUT", constants.backendHost + "/api/v1/dislike/" + id, false);  // synchronous request
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+    xhr.send(JSON.stringify({
+        bookId: id
+    }));
+}
+
+function getUserGrade(id) {
+    let auth = new Auth()
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", constants.backendHost + "/api/v1/rated/" + id, false);  // synchronous request
+    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+    xhr.send(null);
+    //let json = JSON.parse(xhr.responseText);
+    console.log(xhr.responseText);
+    return xhr.responseText;
+}
+
+
 
 export default function Book(props) {
     const classes = useStyles();
@@ -104,6 +145,49 @@ export default function Book(props) {
         paramId: id,
         paramName: book.name
     };
+
+    const isLiked = () => {
+        let grade = getUserGrade(id);
+        return grade === '"LIKE"';
+    }
+
+    const isDisliked = () => {
+        let grade = getUserGrade(id);
+        return grade === '"DISLIKE"';
+    }
+
+    const [like, setLike] = useState(book.likeCount);
+    const [likeActive, setLikeActive] = useState(isLiked);
+    const [dislike, setDislike] = useState(book.dislikeCount);
+    const [dislikeActive, setDislikeActive] = useState(isDisliked);
+
+    const setLikes = () => {
+        setLikeActive(!likeActive);
+        setLike(likeActive ? like - 1 : like + 1);
+    }
+
+    const setDislikes = () => {
+        setDislikeActive(!dislikeActive);
+        setDislike(dislikeActive ? dislike - 1 : dislike + 1);
+    }
+
+    const handleLike = () => {
+        if (dislikeActive) {
+            setLikes();
+            setDislikes();
+        }
+        setLikes();
+        createLike(id);
+    }
+
+    const handleDislike = () => {
+        if (likeActive) {
+            setDislikes();
+            setLikes();
+        }
+        setDislikes();
+        createDislike(id);
+    }
 
     registerEvent(id)
     return (
@@ -134,19 +218,19 @@ export default function Book(props) {
                     </Typography>
                     <Grid container direction="row" justify="flex-start">
                         <Grid item>
-                            <IconButton>
+                            <IconButton onClick={handleLike}>
                                 <Typography variant="body1" className={classes.num}>
-                                    {book.likeCount}
+                                    {like}
                                 </Typography>
-                                <ThumbUpAltIcon/>
+                                {likeActive ? <ThumbUpAltIcon/> : <ThumbUpOutlinedIcon/>}
                             </IconButton>
                         </Grid>
                         <Grid item>
-                            <IconButton>
+                            <IconButton onClick={handleDislike}>
                                 <Typography variant="body1" className={classes.num}>
-                                    {book.dislikeCount}
+                                    {dislike}
                                 </Typography>
-                                <ThumbDownAltIcon/>
+                                {dislikeActive ? <ThumbDownAltIcon/> : <ThumbDownAltOutlinedIcon/>}
                             </IconButton>
                         </Grid>
                     </Grid>

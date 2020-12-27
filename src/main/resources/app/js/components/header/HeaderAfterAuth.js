@@ -136,9 +136,8 @@ export default function HeaderAfterAuth(props) {
                                     </div>
                                 </Grid>}
                                 <Grid item>
-                                    <Button color="inherit" onClick={() => {
+                                    <Button component={RouterLink} to={"/"} color="inherit" onClick={() => {
                                         new Auth().signOff()
-                                        window.location.reload()
                                     }}>
                                             Sign off
                                     </Button>
