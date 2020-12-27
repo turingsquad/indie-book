@@ -6,5 +6,6 @@ export default {
     signUp: "/f/signUp",
     books: "/f/books",
     chapterPage: '/f/chapter/:id',
-    bookEditorPage: '/f/createBook'
+    bookEditorPage: '/f/createBook',
+    authorBooks: '/f/author/:id'
 }

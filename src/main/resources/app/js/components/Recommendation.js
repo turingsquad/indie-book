@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     },
     cardAction: {
         float: 'right'
+    },
+    bookLink: {
+        marginTop: theme.spacing(1)
     }
 }));
 
@@ -52,14 +55,14 @@ export default function Recommendation() {
         <Card variant="outlined">
             <CardHeader title="Recommendation" className={classes.cardHeader}/>
             <CardContent>
-                <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-                    <Grid item lg={3}>
+                <Grid container lg={12} md={12} sm={12} direction="row" justify="space-evenly" alignItems="flex-start">
+                    <Grid item lg={3} md={3} sm={8} className={classes.bookLink}>
                         <BookLink author={findAuthor(recommendations[0].authorId).userName} bookName={recommendations[0].name} id={recommendations[0].id}/>
                     </Grid>
-                    <Grid item lg={3}>
+                    <Grid item lg={3} md={3} sm={8} className={classes.bookLink}>
                         <BookLink author={findAuthor(recommendations[1].authorId).userName} bookName={recommendations[1].name} id={recommendations[1].id}/>
                     </Grid>
-                    <Grid item lg={3}>
+                    <Grid item lg={3} md={3} sm={8} className={classes.bookLink}>
                         <BookLink author={findAuthor(recommendations[2].authorId).userName} bookName={recommendations[2].name} id={recommendations[2].id}/>
                     </Grid>
                 </Grid>

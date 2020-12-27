@@ -9,6 +9,7 @@ import com.dream.team.indiebook.service.RateService
 import com.dream.team.indiebook.service.TagService
 import com.dream.team.indiebook.vo.BookVo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -32,7 +33,7 @@ class BookServiceImpl : BookService {
     lateinit var tagService: TagService
 
     override fun getAllByUser(userId: Long): List<BookVo> {
-        val domainEntities = bookRepository.findByAuthorId(userId)
+        val domainEntities = bookRepository.findByAuthorIdOrderByIdDesc(userId)
         return entitiesToViews(domainEntities)
     }
 
@@ -55,14 +56,26 @@ class BookServiceImpl : BookService {
         return entitiesToViews(listOf(entity))[0]
     }
 
+    override fun pageCount(request: SearchRequest): Int {
+        val namePart = request.namePart ?: ""
+        val pageable = PageRequest.of(1, 3)
+        return if (request.tagIds.isNullOrEmpty()) {
+            bookRepository.findByNameContaining(namePart, pageable).totalPages //if no tags passed, do not look at tags
+        } else {
+            bookRepository.findByTagsAndName(namePart, request.tagIds, pageable).totalPages
+        }
+    }
+
     override fun searchBooks(request: SearchRequest): List<BookVo> {
-        val byTags: List<Book> = tagService.viewsToEntities(
-            tagService.findByIds(request.tagIds ?: emptyList())
-        ).map {
-            bookRepository.findAllByTagsContains(it)
-        }.flatten()
-        val byNamePatterns = bookRepository.findByNameContaining(request.namePart ?: "")
-        return entitiesToViews(byTags.union(byNamePatterns).toList())
+        val namePart = request.namePart ?: ""
+        val page = request.page ?: 1
+        val pageable = PageRequest.of(page.toInt() - 1, 3)
+        val found: List<Book> = if (request.tagIds.isNullOrEmpty()) {
+            bookRepository.findByNameContaining(namePart, pageable).content //if no tags passed, do not look at tags
+        } else {
+            bookRepository.findByTagsAndName(namePart, request.tagIds, pageable).content
+        }
+        return entitiesToViews(found)
     }
 
     override fun findRandomBooks(limit: Int): List<BookVo> {

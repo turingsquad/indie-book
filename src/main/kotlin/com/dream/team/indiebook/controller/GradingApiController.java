@@ -1,14 +1,19 @@
 package com.dream.team.indiebook.controller;
 
+import com.dream.team.indiebook.entity.RateType;
 import com.dream.team.indiebook.service.CommentService;
 import com.dream.team.indiebook.service.RateService;
+import com.dream.team.indiebook.service.UserService;
 import com.dream.team.indiebook.vo.CommentVo;
 import com.dream.team.indiebook.vo.DislikeVo;
 import com.dream.team.indiebook.vo.LikeVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 public class GradingApiController {
@@ -17,43 +22,64 @@ public class GradingApiController {
 
     private CommentService commentService;
 
+    private UserService userService;
+
     @Autowired
-    public void setRateService(RateService rateService) {
+    public void setRateService(final RateService rateService) {
         this.rateService = rateService;
     }
 
     @Autowired
-    public void setCommentService(CommentService commentService) {
+    public void setCommentService(final CommentService commentService) {
         this.commentService = commentService;
     }
 
-    @GetMapping("/api/v1/likes/{bookId}")
-    public List<LikeVo> getLikes(@PathVariable Long bookId) {
+    @Autowired
+    public void setUserService(final UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping(value = "/api/v1/rated/{bookId}")
+    public RateType rates(@PathVariable final Long bookId, final Authentication auth) {
+        final var principal = (UserDetails) auth.getPrincipal();
+        final var username = principal.getUsername();
+        final var user = userService.findUserByName(username);
+        return rateService.userRated(bookId, user.getId());
+    }
+
+    @GetMapping(value = "/api/v1/likes/{bookId}", produces = {"application/json"})
+    public List<LikeVo> getLikes(@PathVariable final Long bookId) {
         return rateService.getAllLikesByBook(bookId);
     }
 
-    @PostMapping("/api/v1/likes/new")
-    public void createLike(@RequestBody LikeVo likeVo) {
-        rateService.createLike(likeVo);
+    @PutMapping(value = "/api/v1/like/{bookId}")
+    public void createLike(@PathVariable final Long bookId, final Authentication auth) {
+        final var principal = (UserDetails) auth.getPrincipal();
+        final var username = principal.getUsername();
+        final var user = userService.findUserByName(username);
+        rateService.createLike(new LikeVo(null, user.getId(), bookId));
     }
 
     @GetMapping("/api/v1/dislikes/{bookId}")
-    public List<DislikeVo> getDislikes(@PathVariable Long bookId) {
+    public List<DislikeVo> getDislikes(@PathVariable final Long bookId) {
         return rateService.getAllDislikesByBook(bookId);
     }
 
-    @PostMapping("/api/v1/dislikes/new")
-    public void createDislike(@RequestBody DislikeVo dislikeVo) {
-        rateService.createDislike(dislikeVo);
+    @PutMapping("/api/v1/dislike/{bookId}")
+    public void createDislike(@PathVariable final Long bookId, final Authentication auth) {
+        final var principal = (UserDetails) auth.getPrincipal();
+        final var username = principal.getUsername();
+        final var user = userService.findUserByName(username);
+        rateService.createDislike(new DislikeVo(null, user.getId(), bookId));
     }
 
     @GetMapping("/api/v1/comments/{chapterId}")
-    public List<CommentVo> getComments(@PathVariable Long chapterId) {
+    public List<CommentVo> getComments(@PathVariable final Long chapterId) {
         return commentService.getAllByChapter(chapterId);
     }
 
     @PostMapping("/api/v1/comments/new")
-    public void createComment(@RequestBody CommentVo commentVo) {
+    public void createComment(@RequestBody final CommentVo commentVo) {
         commentService.createComment(commentVo);
     }
 }

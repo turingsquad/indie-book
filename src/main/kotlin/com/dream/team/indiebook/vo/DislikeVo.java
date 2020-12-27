@@ -4,36 +4,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DislikeVo {
-    private Long id;
-    private Long userID;
-    private Long bookID;
+    private final Long id;
 
-    public DislikeVo(Long id, Long userID) {
+    private final Long userId;
+
+    private final Long bookId;
+
+    public DislikeVo(final Long id, final Long userId, final Long bookId) {
         this.id = id;
-        this.userID = userID;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
-
-    public void setBookID(Long bookID) {
-        this.bookID = bookID;
+        this.userId = userId;
+        this.bookId = bookId;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getUserID() {
-        return userID;
+    public Long getUserId() {
+        return userId;
     }
 
-    public Long getBookID() {
-        return bookID;
+    public Long getBookId() {
+        return bookId;
     }
 }

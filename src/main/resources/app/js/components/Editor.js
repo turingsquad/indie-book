@@ -171,7 +171,7 @@ export default function Editor() {
             </Grid>
             <Button variant="contained" size="large" className={classes.button}
                     onClick={buttonClick} component={RouterLink}
-                    to={"/"}>
+                    to={"/f/author/" + new Auth().getCurrentUserId()}>
                 Save
             </Button>
         </Container>

@@ -9,7 +9,7 @@ import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
-import {Link as RouterLink, useHistory} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -70,8 +70,8 @@ export default function HeaderBeforeAuth(props) {
             <AppBar position="static" className={classes.appbar}>
                 <Container>
                     <Toolbar>
-                        <Grid container direction="row" lg={12} justify="space-around" alignItems="center">
-                            <Grid container direction="row" lg={6} justify="flex-start" alignItems="center">
+                        <Grid container direction="row" lg={12} sm={12} justify="space-around" alignItems="center">
+                            <Grid container direction="row" lg={6} md={5} sm={3} xs={3} justify="flex-start" alignItems="center">
                                 <Grid item>
                                     <Button component={RouterLink} to={"/"} underline="none" color="inherit">
                                         <Typography
@@ -84,8 +84,8 @@ export default function HeaderBeforeAuth(props) {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid container direction="row" lg={6} justify="flex-end" alignItems="center">
-                                <Grid item>
+                            <Grid container direction="row" lg={6} md={5} sm={9} xs={9} justify="flex-end" alignItems="center">
+                                { false && <Grid item>
                                     <div className={classes.search}>
                                         <div className={classes.searchIcon}>
                                             <SearchIcon/>
@@ -98,19 +98,30 @@ export default function HeaderBeforeAuth(props) {
                                             }}
                                         />
                                     </div>
+                                </Grid>}
+                                <Grid item>
+                                    <Typography
+                                        variant="body2"
+                                        color="inherit"
+                                        noWrap
+                                        className={classes.link}
+                                    >
+                                        <Button color="inherit" component={RouterLink} to="/f/books">
+                                            Publications
+                                        </Button>
+                                    </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signIn"} underline="none" color="inherit">
-                                        <Button color="inherit" className={classes.button} size="small" onClick={() => {
-                                            useHistory().push("/")
-                                        }}>Sign in</Button>
+                                        <Button color="inherit" className={classes.button} size="small" >Sign in</Button>
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link component={RouterLink} to={"/f/signUp"} underline="none" color="inherit">
-                                        <Button color="inherit" className={classes.button} variant="outlined"
-                                                size="small">Sign
-                                            up</Button>
+                                        <Button color="inherit" className={classes.button} variant="outlined" size="small"
+                                        >
+                                            Sign up
+                                        </Button>
                                     </Link>
                                 </Grid>
                             </Grid>

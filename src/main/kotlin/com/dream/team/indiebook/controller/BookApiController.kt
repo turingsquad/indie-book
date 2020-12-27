@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*
 /**
  * @author Alexander Kostyurenko
  */
+@CrossOrigin
 @RestController
 class BookApiController {
     @set:Autowired
@@ -84,6 +85,11 @@ class BookApiController {
     @GetMapping("/api/v1/tags/{tagId}")
     fun findTagById(@PathVariable tagId: Long): TagVo {
         return tagService.findById(tagId)
+    }
+
+    @PostMapping("/api/v1/pages")
+    fun pageCount(@RequestBody searchRequest: SearchRequest): Int {
+        return bookService.pageCount(searchRequest)
     }
 
     @PostMapping("/api/v1/search")
