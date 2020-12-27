@@ -26,7 +26,7 @@ public class RateServiceImpl implements RateService {
     public List<LikeVo> getAllLikesByBook(final Long bookId) {
         final List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.LIKE);
         return byBookIdAndRateType.stream()
-                .map(it -> new LikeVo(it.getId(), it.getUserId(), it.getUserId()))
+                .map(it -> new LikeVo(it.getId(), it.getUserId(), it.getBookId()))
                 .collect(Collectors.toList());
     }
 
@@ -34,7 +34,7 @@ public class RateServiceImpl implements RateService {
     public List<DislikeVo> getAllDislikesByBook(final Long bookId) {
         final List<Rate> byBookIdAndRateType = rateRepository.findByBookIdAndRateType(bookId, RateType.DISLIKE);
         return byBookIdAndRateType.stream()
-                .map(it -> new DislikeVo(it.getId(), it.getUserId(), it.getUserId()))
+                .map(it -> new DislikeVo(it.getId(), it.getUserId(), it.getBookId()))
                 .collect(Collectors.toList());
     }
 
