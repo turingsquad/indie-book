@@ -1,5 +1,6 @@
 package com.dream.team.indiebook.service;
 
+import com.dream.team.indiebook.entity.RateType;
 import com.dream.team.indiebook.vo.DislikeVo;
 import com.dream.team.indiebook.vo.LikeVo;
 
@@ -11,5 +12,8 @@ public interface RateService {
     void createLike(LikeVo likeVo);
     void createDislike(DislikeVo dislikeVo);
     Integer countLikesByBook(Long bookID);
+
     Integer countDislikesByBook(Long bookID);
+
+    RateType userRated(Long bookId, Long userId);
 }

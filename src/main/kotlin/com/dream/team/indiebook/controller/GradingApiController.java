@@ -1,5 +1,6 @@
 package com.dream.team.indiebook.controller;
 
+import com.dream.team.indiebook.entity.RateType;
 import com.dream.team.indiebook.service.CommentService;
 import com.dream.team.indiebook.service.RateService;
 import com.dream.team.indiebook.service.UserService;
@@ -36,6 +37,14 @@ public class GradingApiController {
     @Autowired
     public void setUserService(final UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(value = "/api/v1/rated/{bookId}")
+    public RateType rates(@PathVariable final Long bookId, final Authentication auth) {
+        final var principal = (UserDetails) auth.getPrincipal();
+        final var username = principal.getUsername();
+        final var user = userService.findUserByName(username);
+        return rateService.userRated(bookId, user.getId());
     }
 
     @GetMapping(value = "/api/v1/likes/{bookId}", produces = {"application/json"})

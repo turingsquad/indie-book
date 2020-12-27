@@ -60,11 +60,18 @@ public class RateServiceImpl implements RateService {
         return rateRepository.countByBookIdAndRateType(bookId, RateType.DISLIKE);
     }
 
+    @Override
+    public RateType userRated(final Long bookId, final Long userId) {
+        final var rate = rateRepository.findByUserIdAndBookId(userId, bookId);
+        if (rate.isPresent()) {
+            return rate.get().getRateType();
+        }
+        return null;
+    }
+
     private void createRate(final Rate rate) {
         final var previousRate = rateRepository.findByUserIdAndBookId(rate.getUserId(), rate.getBookId());
-        if (previousRate.isPresent()) {
-            rateRepository.delete(previousRate.get());
-        }
+        previousRate.ifPresent(value -> rateRepository.delete(value));
         rateRepository.save(rate);
     }
 }
