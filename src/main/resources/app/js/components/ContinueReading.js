@@ -4,8 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import {makeStyles} from "@material-ui/core/styles";
 import CardHeader from '@material-ui/core/CardHeader';
-import Link from '@material-ui/core/Link';
-import CardActions from '@material-ui/core/CardActions';
 import BookLink from "./BookLink";
 import Auth from "./auth/Auth";
 
@@ -67,11 +65,6 @@ export default function ContinueReading() {
                     <BookLink bookName={book.name} author={findAuthor(book.authorId).userName} id={book.id}/>
                 </Grid>
             </CardContent>
-            <CardActions className={classes.cardAction}>
-                <Link href="#" className={classes.link} variant="body2">
-                    Read
-                </Link>
-            </CardActions>
         </Card>
     );
 }
