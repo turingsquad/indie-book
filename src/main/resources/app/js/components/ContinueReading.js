@@ -15,10 +15,6 @@ const useStyles = makeStyles((theme) => ({
         background: '#ffddb0',
         height: 40
     },
-    card : {
-        width : 125,
-        height: 125
-    },
     link: {
         color: theme.palette.warning.dark,
         marginRight: theme.spacing(2)

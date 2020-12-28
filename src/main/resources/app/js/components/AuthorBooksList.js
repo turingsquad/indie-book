@@ -10,16 +10,13 @@ import constants from "./constants/contants";
 
 
 const useStyles = makeStyles((theme) => ({
-    table: {
-        minWidth: 700,
-    },
     list : {
         marginTop: theme.spacing(1)
     },
     pagination : {
         marginTop: theme.spacing(2)
     },
-    cardHeader : {
+    header : {
         height: 40
     },
 }));
@@ -28,15 +25,13 @@ function getBooksByAuthorId(userId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/books/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 function getAuthorByAuthorId(userId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 export default function AuthorBooksList(props) {

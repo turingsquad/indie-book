@@ -7,12 +7,6 @@ import State from "./State";
 import {Link as RouterLink} from 'react-router-dom';
 
 const styles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     form: {
         width: '100%',
         marginTop: theme.spacing(1),
@@ -26,6 +20,7 @@ const styles = makeStyles((theme) => ({
 export default function SignUp() {
     let state = new State();
     const classes = styles();
+
     return (
         <Container>
             <form className={classes.form} noValidate>

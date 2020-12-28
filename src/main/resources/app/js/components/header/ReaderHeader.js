@@ -20,9 +20,7 @@ function getChapterById(chapterId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/chapter/" + chapterId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 export default function ReaderHeader(props) {

@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-
-export default function SignUpPage(props) {
+export default function SignUpPage() {
     const classes = useStyles();
     return (
         <Container className={classes.container}>
@@ -27,10 +26,6 @@ export default function SignUpPage(props) {
 
                 </Grid>
             </Grid>
-
         </Container>
-
-
-
     )
 }

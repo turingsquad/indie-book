@@ -4,12 +4,10 @@ import '../../styles/BookItem.css';
 import "regenerator-runtime/runtime.js";
 
 function getBooksByUser(userId) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/v1/books/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 export default class Books extends React.Component {

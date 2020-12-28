@@ -8,12 +8,6 @@ import {Link as RouterLink} from 'react-router-dom';
 
 
 const styles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     form: {
         width: '100%',
         marginTop: theme.spacing(1),
@@ -21,10 +15,6 @@ const styles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(2, 0, 2),
         background: theme.palette.warning.light,
-    },
-    link: {
-        marginLeft: theme.spacing(6),
-        color: theme.palette.warning.dark,
     }
 }));
 
