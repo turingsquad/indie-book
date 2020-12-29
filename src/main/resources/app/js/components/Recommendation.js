@@ -4,8 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import {makeStyles} from "@material-ui/core/styles";
-import CardActions from '@material-ui/core/CardActions';
-import Link from '@material-ui/core/Link';
 import BookLink from "./BookLink";
 import constants from "./constants/contants";
 
@@ -59,11 +57,6 @@ export default function Recommendation() {
                     </Grid>
                 </Grid>
             </CardContent>
-            <CardActions className={classes.cardAction}>
-                <Link href="#" className={classes.link} variant="body2">
-                    View All Recommendations
-                </Link>
-            </CardActions>
         </Card>
     );
 }
