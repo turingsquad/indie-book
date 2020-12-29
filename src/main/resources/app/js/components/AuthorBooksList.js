@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import {Pagination} from "@material-ui/lab";
 import BookItem from "./BookItem";
 import constants from "./constants/contants";
+import Typography from "@material-ui/core/Typography";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,7 @@ export default function AuthorBooksList(props) {
     const [page, setPage] = React.useState(1);
     const itemsPerPage = 5;
     let books = getBooksByAuthorId(userId);
+    let isBooksExists = books.length === 0;
     let author = getAuthorByAuthorId(userId);
     const [amountOfPages] = React.useState(
         Math.ceil(books.length / itemsPerPage)
@@ -54,6 +56,10 @@ export default function AuthorBooksList(props) {
             <Card>
                 <CardHeader title={author.userName} className={classes.header}/>
                 <CardContent>
+                    {isBooksExists &&
+                    <Typography variant={"h5"}>
+                        Sorry, but your list of books is empty
+                    </Typography> }
                     {books
                         .slice((page - 1) * itemsPerPage, page * itemsPerPage)
                         .map(item => {
