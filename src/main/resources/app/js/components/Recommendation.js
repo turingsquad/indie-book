@@ -12,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
         background: '#ffddb0',
         height: 40
     },
-    card: {
-        height: 100,
-        width: 100
-    },
     link: {
         color: theme.palette.warning.dark,
         marginRight: theme.spacing(2)
@@ -29,21 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function recommendedBooks() {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/books/random/" + 3, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
+    return  JSON.parse(xhr.responseText)
 }
 
 function findAuthor(userId) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 export default function Recommendation() {

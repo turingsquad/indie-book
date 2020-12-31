@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-
-export default function SignInPage(props) {
+export default function SignInPage() {
     const classes = useStyles();
     return (
         <Container className={classes.container}>
@@ -27,10 +26,6 @@ export default function SignInPage(props) {
 
                 </Grid>
             </Grid>
-
         </Container>
-
-
-
     )
 }

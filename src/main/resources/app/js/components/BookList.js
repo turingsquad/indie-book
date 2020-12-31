@@ -36,26 +36,21 @@ function getTags() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/tags", false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 function getRandom() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/books/random/" + 3, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 function findAuthor(userId) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    //console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 export default function BookList() {
@@ -103,8 +98,7 @@ export default function BookList() {
             "page": pageNumber,
             "tagIds": tagIds
         }));
-        let json = JSON.parse(xhr.responseText)
-        return json
+        return JSON.parse(xhr.responseText)
     }
 
     const handleSearchChange = (event) => {

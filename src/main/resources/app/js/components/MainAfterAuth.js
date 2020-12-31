@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
 import Recommendation from "./Recommendation";
 import ContinueReading from "./ContinueReading";
-import News from "./News";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({

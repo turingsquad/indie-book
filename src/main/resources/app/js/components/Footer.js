@@ -1,8 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import Grid from "@material-ui/core/Grid";
 import FooterBlock from "./FooterBlock";
 
@@ -10,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '60vh',
-        maxHeight: '800vh',
+        minHeight: '65vh',
+        maxHeight: '850vh',
         position: "relative",
         width: "100%"
     },
@@ -29,30 +27,11 @@ const useStyles = makeStyles((theme) => ({
 const navigationData = [
     {
         name : 'Главная',
-        link : '#'
-    },
-    {
-        name : 'Люди',
-        link : '#'
+        link : '/'
     },
     {
         name : 'Публикации',
-        link : '#'
-    }
-]
-
-const infoData = [
-    {
-        name : 'Главная',
-        link : '#'
-    },
-    {
-        name : 'Люди',
-        link : '#'
-    },
-    {
-        name : 'Публикации',
-        link : '#'
+        link : '/f/books'
     }
 ]
 
@@ -63,12 +42,9 @@ export default function Footer() {
         <div className={classes.root}>
             <footer className={classes.footer}>
                 <Container>
-                    <Grid container lg={12} direction="row" justify="space-around" alignItems="flex-start">
+                    <Grid container lg={12} direction="row" justify="center" alignItems="center">
                         <Grid item lg={3}>
                             <FooterBlock title="Навигация" data={navigationData} />
-                        </Grid>
-                        <Grid item lg={3}>
-                            <FooterBlock title="Информация" data={infoData}/>
                         </Grid>
                     </Grid>
                 </Container>

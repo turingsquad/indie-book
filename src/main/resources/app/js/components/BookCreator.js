@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function getTags() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/tags", false);  // synchronous request
@@ -37,17 +36,7 @@ function getTags() {
     return json
 }
 
-function getTagById(tag) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", constants.backendHost + "/api/v1/tags/" + tag, false);  // synchronous request
-    xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    console.log(json)
-    return json
-}
-
 function createBook(name, desc, ...tags) {
-
     let auth = new Auth()
     if (auth.isAuthenticated()) {
         let xhr = new XMLHttpRequest();
@@ -64,12 +53,11 @@ function createBook(name, desc, ...tags) {
     return undefined
 }
 
-export default function Editor() {
+export default function BookCreator() {
     const [bookName, setBookName] = useState("");
     const [description, setDescription] = useState("");
     const[tagList, setTagList] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
-    const [bookId, setBookId] = useState(0);
 
 
     const handleForm1 = e => {
@@ -79,18 +67,6 @@ export default function Editor() {
     const handleForm2 = e => {
         setDescription(e.target.value);
     }
-
-    const handleDelete = chipToDelete => {
-        setTagList((chips) =>
-            chips.filter((chips) => chips.key !== chipToDelete.key)
-        );
-    }
-
-    const handleSelect = e => {
-        setTagList([...tagList, { id: e.target.value, name: e.target.value }]);
-        console.log(e);
-    }
-
 
     const populateData = () => {
         const tags = getTags();
@@ -102,10 +78,7 @@ export default function Editor() {
     }, [])
 
     const buttonClick = () => {
-        let book = createBook(bookName, description, selectedTags)
-        console.log(book)
-        console.log(book.id)
-        setBookId(book.id)
+        createBook(bookName, description, selectedTags)
     }
 
     const classes = useStyles();
@@ -141,6 +114,7 @@ export default function Editor() {
 
                     </form>
                     <Dropdown
+                        title={"Tags"}
                         data={tagList}
                         fullWidth
                         searchable

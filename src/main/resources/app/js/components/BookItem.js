@@ -9,20 +9,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import {Link as RouterLink} from 'react-router-dom';
 
-let array = ['tag1', 'tag2', 'tag3'];
-
 const useStyles = makeStyles((theme) => ({
-    container : {
-        marginRight: theme.spacing(2)
-    },
     chip : {
         marginRight: theme.spacing(1)
     },
     card : {
         marginTop : theme.spacing(2)
-    },
-    element : {
-        paddingLeft : theme.spacing(1)
     },
     tags: {
         marginTop : theme.spacing(1)

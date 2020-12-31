@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {fade, makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import {AppBar} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
 import {Link as RouterLink} from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
@@ -19,46 +17,9 @@ const useStyles = makeStyles((theme) => ({
     toolbarTitle: {
         flex: 1,
     },
-    toolbarSecondary: {
-        justifyContent: 'space-between',
-        overflowX: 'auto',
-    },
-    toolbarLink: {
-        padding: theme.spacing(1),
-        flexShrink: 0,
-    },
     button: {
         marginLeft: theme.spacing(2),
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.20),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.35),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '200px',
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-    },
+    }
 }));
 
 export default function HeaderBeforeAuth(props) {
@@ -85,20 +46,6 @@ export default function HeaderBeforeAuth(props) {
                                 </Grid>
                             </Grid>
                             <Grid container direction="row" lg={6} md={5} sm={9} xs={9} justify="flex-end" alignItems="center">
-                                { false && <Grid item>
-                                    <div className={classes.search}>
-                                        <div className={classes.searchIcon}>
-                                            <SearchIcon/>
-                                        </div>
-                                        <InputBase
-                                            placeholder="Search…"
-                                            classes={{
-                                                root: classes.inputRoot,
-                                                input: classes.inputInput,
-                                            }}
-                                        />
-                                    </div>
-                                </Grid>}
                                 <Grid item>
                                     <Typography
                                         variant="body2"

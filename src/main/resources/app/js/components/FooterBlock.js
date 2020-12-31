@@ -1,10 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import {makeStyles} from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import '../../styles/FooterBlock.css';
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     container : {
@@ -25,7 +25,7 @@ export default function FooterBlock(props) {
             </Grid>
             <ul>
                 {data.map(item => {
-                    return <li><Link href={item.link} className={classes.container}> {item.name} </Link></li>
+                    return <li><Link component={RouterLink} to={item.link} href={item.link} className={classes.container}> {item.name} </Link></li>
                 })}
             </ul>
         </Grid>

@@ -9,7 +9,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
-import CommentIcon from '@material-ui/icons/Comment';
 import Link from "@material-ui/core/Link";
 import constants from "./constants/contants";
 import Auth from "./auth/Auth";
@@ -23,27 +22,21 @@ function findBook(bookId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/book/" + bookId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    //console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 function findAuthor(userId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/users/" + userId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    //console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 function findChapters(bookId) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", constants.backendHost + "/api/v1/books/chapters/" + bookId, false);  // synchronous request
     xhr.send(null);
-    let json = JSON.parse(xhr.responseText)
-    //console.log(json)
-    return json
+    return JSON.parse(xhr.responseText)
 }
 
 function registerEvent(bookId) {
@@ -66,9 +59,7 @@ function isAuthor(userId) {
         xhr.open("GET", "/api/v1/book/isAuthor/" + userId, false);  // synchronous request
         xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader())
         xhr.send(null);
-        let json = JSON.parse(xhr.responseText)
-        //console.log("Response" + json)
-        return json
+        return JSON.parse(xhr.responseText)
     }
     return false
 }
@@ -86,55 +77,51 @@ const useStyles = makeStyles((theme) => ({
     num : {
         paddingRight : theme.spacing(1)
     },
-    chapterName: {
-        marginRight: theme.spacing(1)
-    },
-    chapterCard: {
-        marginTop: theme.spacing(1)
-    },
     button: {
         marginLeft: theme.spacing(2)
-    },
-    activeGrading : {
-        background: "#3891D9"
     }
 }))
 
 function createLike(id) {
     let auth = new Auth()
-    let xhr = new XMLHttpRequest();
-    xhr.open("PUT", constants.backendHost + "/api/v1/like/" + id, false);  // synchronous request
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
-    xhr.send(JSON.stringify({
-        bookId: id
-    }));
+    if (auth.isAuthenticated()) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", constants.backendHost + "/api/v1/like/" + id, false);  // synchronous request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+        xhr.send(JSON.stringify({
+            bookId: id
+        }));
+    }
+    //TODO create logic if user is not authenticated
 }
 
 
 function createDislike(id) {
     let auth = new Auth()
-    let xhr = new XMLHttpRequest();
-    xhr.open("PUT", constants.backendHost + "/api/v1/dislike/" + id, false);  // synchronous request
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
-    xhr.send(JSON.stringify({
-        bookId: id
-    }));
+    if (auth.isAuthenticated()) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", constants.backendHost + "/api/v1/dislike/" + id, false);  // synchronous request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+        xhr.send(JSON.stringify({
+            bookId: id
+        }));
+    } //TODO create logic if user is not authenticated
 }
 
 function getUserGrade(id) {
     let auth = new Auth()
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", constants.backendHost + "/api/v1/rated/" + id, false);  // synchronous request
-    xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
-    xhr.send(null);
-    //let json = JSON.parse(xhr.responseText);
-    console.log(xhr.responseText);
-    return xhr.responseText;
+    if (auth.isAuthenticated()) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", constants.backendHost + "/api/v1/rated/" + id, false);  // synchronous request
+        xhr.setRequestHeader(auth.authHeaderName(), auth.getAuthHeader());
+        xhr.send(null);
+        console.log(xhr.responseText);
+        return xhr.responseText;
+    }
+    return null;
 }
-
-
 
 export default function Book(props) {
     const classes = useStyles();
@@ -190,6 +177,7 @@ export default function Book(props) {
     }
 
     registerEvent(id)
+
     return (
         <Container maxWidth="md" className={classes.container}>
             <Card>
@@ -205,7 +193,12 @@ export default function Book(props) {
                             </Grid>
                         <Grid item>
                             <ul>
-                                {book.tags.map(item => { return <li className="tag"><Chip className={classes.chip} label={item.name}/></li>;
+                                {book.tags.map(item => {
+                                    return (
+                                        <li className="tag">
+                                            <Chip className={classes.chip} label={item.name}/>
+                                        </li>
+                                );
                                 })}
                                 </ul>
                         </Grid>
@@ -245,12 +238,6 @@ export default function Book(props) {
                                     <Link href="#" variant="h6" component={RouterLink} to={"/f/chapter/" + item.id}>
                                         {item.name}
                                     </Link>
-                                        <IconButton>
-                                            <Typography variant="body1" className={classes.num}>
-                                                {item.commentCount}
-                                            </Typography>
-                                            <CommentIcon/>
-                                        </IconButton>
                                     </div>
                                 </li>
                             )
@@ -258,10 +245,17 @@ export default function Book(props) {
                     </ol>
                 </CardContent>
                 <CardActions>
-                    {isAuthor(book.authorId) && <Button className={classes.button} variant="outlined" component={RouterLink}
-                                                    to={ toParams }>
-                        Create new Chapter
-                    </Button>}
+                    {
+                        isAuthor(book.authorId)
+                        &&
+                        <Button
+                            className={classes.button}
+                            variant="outlined"
+                            component={RouterLink}
+                            to={ toParams }>
+                            Create new Chapter
+                        </Button>
+                    }
                 </CardActions>
             </Card>
         </Container>
