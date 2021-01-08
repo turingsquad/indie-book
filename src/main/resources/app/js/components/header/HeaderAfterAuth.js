@@ -17,17 +17,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
         background: "#424242"
     },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.20),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.35),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '200px',
-    },
     icon : {
         marginRight : theme.spacing(2),
         marginLeft : theme.spacing(2),
